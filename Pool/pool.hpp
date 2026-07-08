@@ -1,40 +1,49 @@
 #pragma once
 
 #include <cstddef>
+#include <new>
 #include <stack>
 #include <stdexcept>
 
 template <typename T> class Pool {
 
   size_t _size;
-  void *_memBuffer;
-  std::stack<T *> _memStack;
+
+  struct Slot {
+    bool used;
+    void* mem;
+  };
+
+  void* _memBuffer;
+  std::vector<Slot> _memSlot;
+  std::stack<Slot*> _memStack;
 
   class Object {
+    friend class Pool<T>;
+    Slot* _slot;
+    Pool* _owner;
 
-    T *_obj;
-    Pool *_owner;
+    Object(Pool* owner, Slot* slot) : _owner(owner), _slot(slot) {};
 
   public:
-    Object(const Object &) = delete;
-    Object &operator=(const Object &) = delete;
+    Object(const Object&) = delete;
+    Object& operator=(const Object&) = delete;
 
-    Object(Pool *owner, T *obj) : _owner(owner), _obj(obj) {};
-    Object(Object &&other) noexcept : _obj(other._obj), _owner(other._owner) {
+    Object(Object&& other) noexcept : _slot(other._slot), _owner(other._owner) {
 
-      other._obj = nullptr;
+      other._slot = nullptr;
       other._owner = nullptr;
     }
-    Object &operator=(Object &&other) noexcept {
+    Object& operator=(Object&& other) noexcept {
       if (this != &other) {
 
-        if (_owner && _obj)
-          _owner->release(_obj);
+        if (_owner && _slot)
+          _owner->release(_slot);
 
-        this->_obj = other._obj;
+        this->_slot = other._slot;
         this->_owner = other._owner;
 
-        other._obj = nullptr;
+        other._slot = nullptr;
         other._owner = nullptr;
       }
 
@@ -42,65 +51,85 @@ template <typename T> class Pool {
     }
 
     ~Object() {
-      if (_owner && _obj)
-        _owner->release(_obj);
+      if (_owner && _slot)
+        _owner->release(_slot);
     };
 
-    T *operator->() { return _obj; };
-    const T *operator->() const { return _obj; };
+    T* operator->() { return static_cast<T*>(_slot->mem); };
+    const T* operator->() const { return static_cast<const T*>(_slot->mem); };
   };
 
-  Pool(const size_t size = 2) : _size(size) {
+public:
+  explicit Pool(const size_t size = 2) : _size(size) {
 
-    _memBuffer = ::operator new(_size * sizeof(T));
+    _memBuffer =
+        ::operator new(_size * sizeof(T), std::align_val_t(alignof(T)));
+    T* start = static_cast<T*>(_memBuffer);
+    _memSlot.reserve(_size);
 
-    T *start = static_cast<T *>(_memBuffer);
-
-    for (size_t i{}; i < size; i++)
-      _memStack.push(start + i);
+    for (size_t i{}; i < _size; i++) {
+      _memSlot.push_back(Slot{.used = false, .mem = start + i});
+      _memStack.push(&_memSlot.back());
+    }
   }
 
-public:
-  Pool(const Pool &) = delete;
-  Pool &operator=(const Pool &) = delete;
+  Pool(const Pool&) = delete;
+  Pool& operator=(const Pool&) = delete;
 
-  ~Pool() { ::operator delete(_memBuffer); }
+  ~Pool() {
+    for (Slot& slot : _memSlot) {
+      if (slot.used)
+        static_cast<T*>(slot.mem)->~T();
+    }
+    ::operator delete(_memBuffer, std::align_val_t(alignof(T)));
+  }
 
-  void resize(const size_t &numberOfObjectStored) {
+  void resize(const size_t& numberOfObjectStored) {
 
     if (_memStack.size() != _size)
       throw std::logic_error(
           "Cannot resize while object are still allocated\n");
 
-    void *newMem = ::operator new(sizeof(T) * numberOfObjectStored);
+    void* newMem = ::operator new(sizeof(T) * numberOfObjectStored,
+                                  std::align_val_t(alignof(T)));
 
     while (!_memStack.empty())
       _memStack.pop();
-
-    ::operator delete(_memBuffer);
-    _memBuffer = newMem;
-    T *start = static_cast<T *>(_memBuffer);
-
-    for (size_t i{}; i < numberOfObjectStored; i++)
-      _memStack.push(start + i);
+    _memSlot.clear();
 
     _size = numberOfObjectStored;
+    _memSlot.reserve(_size);
+
+    ::operator delete(_memBuffer, std::align_val_t(alignof(T)));
+    _memBuffer = newMem;
+    T* start = static_cast<T*>(_memBuffer);
+
+    for (size_t i{}; i < _size; i++) {
+      _memSlot.push_back(Slot{.used = false, .mem = start + i});
+      _memStack.push(&_memSlot.back());
+    }
   }
 
-  template <typename... TArgs> Object acquire(TArgs &&...p_args) {
+  template <typename... TArgs> Object acquire(TArgs&&... p_args) {
     if (_memStack.empty())
       throw std::logic_error("Pool has no more empty memory slot\n");
 
-    T *slot = _memStack.top();
+    Slot* slot = _memStack.top();
     _memStack.pop();
+    slot->used = true;
+    new (slot->mem) T(std::forward<TArgs>(p_args)...);
 
-    auto obj = new (slot) T(std::forward<TArgs>(p_args)...);
-    return Object(this, obj);
+    return Object(this, slot);
   }
 
 private:
-  void release(T *pointer) {
-    pointer->~T();
-    _memStack.push(pointer);
+  void release(Slot* slot) {
+
+    if (!slot)
+      return;
+
+    static_cast<T*>(slot->mem)->~T();
+    slot->used = false;
+    _memStack.push(slot);
   }
 };
