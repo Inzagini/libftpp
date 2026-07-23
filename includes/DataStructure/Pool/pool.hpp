@@ -4,6 +4,7 @@
 #include <new>
 #include <stack>
 #include <stdexcept>
+#include <vector>
 
 template <typename T> class Pool {
 

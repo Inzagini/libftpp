@@ -7,7 +7,6 @@ void DataBuffer::clear() {
   _readpos = 0;
   _writePos = 0;
   _size = 0;
-  _buffer.clear();
 }
 
 void DataBuffer::writeBytes(const char* data, size_t count) {
@@ -39,6 +38,29 @@ void DataBuffer::readBytes(char* output, size_t count) {
   _size -= count;
 }
 
-bool DataBuffer::empty() const { return _buffer.size() == 0; }
+bool DataBuffer::empty() const { return _size == 0; }
 
 bool DataBuffer::full() const { return _buffer.size() == _size; }
+
+DataBuffer& DataBuffer::operator<<(const std::string& dataValue) {
+
+  std::size_t lenght = dataValue.size();
+
+  *this << lenght;
+
+  writeBytes(dataValue.data(), lenght);
+
+  return *this;
+}
+
+DataBuffer& DataBuffer::operator>>(std::string& dataValue) {
+
+  std::size_t lenght;
+  *this >> lenght;
+
+  dataValue.resize(lenght);
+
+  readBytes(dataValue.data(), lenght);
+
+  return *this;
+}

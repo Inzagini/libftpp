@@ -53,26 +53,3 @@ template <typename T> DataBuffer& DataBuffer::operator>>(T& dataValue) {
 
   return *this;
 }
-
-DataBuffer& DataBuffer::operator<<(const std::string& dataValue) {
-
-  std::size_t lenght = dataValue.size();
-
-  *this << lenght;
-
-  writeBytes(dataValue.data(), lenght);
-
-  return *this;
-}
-
-DataBuffer& DataBuffer::operator>>(std::string& dataValue) {
-
-  std::size_t lenght;
-  *this >> lenght;
-
-  dataValue.resize(lenght);
-
-  readBytes(dataValue.data(), lenght);
-
-  return *this;
-}
