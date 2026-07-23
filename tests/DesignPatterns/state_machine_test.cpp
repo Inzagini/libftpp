@@ -199,6 +199,8 @@ int main() {
 
     machine.addTransition(State::Idle, State::Walking, [&]() { count++; });
 
+    machine.addAction(State::Walking, []() {});
+
     machine.transitionTo(State::Walking);
 
     assert(count == 1);
@@ -207,6 +209,5 @@ int main() {
 
     assert(count == 1);
   });
-
   return runner.run();
 }
