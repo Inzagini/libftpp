@@ -21,5 +21,5 @@ public:
 
 private:
   virtual void _saveToSnapshot(Snapshot&) const = 0;
-  virtual void _loadFromSnapshot(Snapshot&) const = 0;
+  virtual void _loadFromSnapshot(Snapshot&) = 0;
 };
