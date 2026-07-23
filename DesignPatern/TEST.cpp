@@ -144,6 +144,151 @@ int main() {
     std::cout << "Singleton OK\n";
   }
 
+  /*
+      STATE MACHINE
+  */
+
+  {
+    std::cout << "\n[StateMachine]\n";
+
+    StateMachine<State> sm;
+
+    sm.addState(State::Idle);
+    sm.addState(State::Walking);
+    sm.addState(State::Running);
+
+    bool idleAction = false;
+    bool walkingAction = false;
+    bool runningAction = false;
+
+    bool idleToWalking = false;
+    bool walkingToRunning = false;
+
+    sm.addAction(State::Idle, [&]() { idleAction = true; });
+
+    sm.addAction(State::Walking, [&]() { walkingAction = true; });
+
+    sm.addAction(State::Running, [&]() { runningAction = true; });
+
+    sm.addTransition(State::Idle, State::Walking,
+                     [&]() { idleToWalking = true; });
+
+    sm.addTransition(State::Walking, State::Running,
+                     [&]() { walkingToRunning = true; });
+
+    // Initial state should be Idle
+    sm.update();
+
+    assert(idleAction);
+
+    idleAction = false;
+
+    // Idle -> Walking
+    sm.transitionTo(State::Walking);
+
+    assert(idleToWalking);
+
+    sm.update();
+
+    assert(walkingAction);
+
+    // Walking -> Running
+    sm.transitionTo(State::Running);
+
+    assert(walkingToRunning);
+
+    sm.update();
+
+    assert(runningAction);
+
+    // Invalid transition
+    bool transitionException = false;
+
+    try {
+      sm.transitionTo(State::Idle);
+    } catch (const std::exception&) {
+      transitionException = true;
+    }
+
+    assert(transitionException);
+
+    /*
+        STATE MACHINE EDGE CASES
+    */
+
+    {
+      std::cout << "\n[StateMachine Edge Cases]\n";
+
+      /*
+          Missing action
+      */
+      {
+        StateMachine<State> sm;
+
+        sm.addState(State::Idle);
+
+        bool thrown = false;
+
+        try {
+          sm.update();
+        } catch (const std::exception&) {
+          thrown = true;
+        }
+
+        assert(thrown);
+
+        std::cout << "Missing action exception OK\n";
+      }
+
+      /*
+          Missing transition
+      */
+      {
+        StateMachine<State> sm;
+
+        sm.addState(State::Idle);
+        sm.addState(State::Walking);
+
+        bool thrown = false;
+
+        try {
+          sm.transitionTo(State::Walking);
+        } catch (const std::exception&) {
+          thrown = true;
+        }
+
+        assert(thrown);
+
+        std::cout << "Missing transition exception OK\n";
+      }
+
+      /*
+          Unknown state transition
+      */
+      {
+        StateMachine<State> sm;
+
+        sm.addState(State::Idle);
+
+        bool thrown = false;
+
+        try {
+          sm.transitionTo(State::Running);
+        } catch (const std::exception&) {
+          thrown = true;
+        }
+
+        assert(thrown);
+
+        std::cout << "Unknown state exception OK\n";
+      }
+
+      std::cout << "StateMachine Edge Cases OK\n";
+    }
+
+    std::cout << "StateMachine OK\n";
+  }
+
   std::cout << "\nALL TESTS PASSED\n";
 
   return 0;
