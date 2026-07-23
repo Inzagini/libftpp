@@ -17,40 +17,44 @@ target_include_directories(
     PUBLIC ${PROJECT_SOURCE_DIR}/includes
 )
 
-# DataStructure test
 add_executable(
-
-    DataStructureTest
-
-    tests/data_structure_test.cpp
-
+    MementoTest
+    tests/DesignPatterns/memento_test.cpp
 )
 
 target_link_libraries(
+    MementoTest
 
-    DataStructureTest
-
-    PRIVATE
-
-    libftpp
-
+    PRIVATE    libftpp
 )
 
-# DesignPattern test
 add_executable(
-
-    DesignPatternTest
-
-    tests/design_patterns_test.cpp
-
+    ObserverTest
+    tests/DesignPatterns/observer_test.cpp
 )
 
 target_link_libraries(
-
-    DesignPatternTest
-
-    PRIVATE
-
-    libftpp
-
+    ObserverTest
+    PRIVATE libftpp
 )
+
+add_executable(
+    SingletonTest
+    tests/DesignPatterns/singleton_test.cpp
+)
+
+target_link_libraries(
+    SingletonTest
+    PRIVATE libftpp
+)
+
+add_executable(
+    StateMachineTest
+    test/DesignPatterns/state_machine_test.cpp
+)
+
+target_link_libraries(
+    StateMachineTest
+    PRIVATE libftpp
+)
+
