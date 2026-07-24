@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(libftpp
  srcs/DataStructure/DataBuffer/data_buffer.cpp
  srcs/DesignPatterns/Memento/memento.cpp
+ srcs/IOStream/ThreadSafeIOStream/thread_safe_iostream.cpp
 )
 
 target_include_directories(
