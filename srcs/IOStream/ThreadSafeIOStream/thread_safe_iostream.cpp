@@ -1,5 +1,7 @@
 #include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 
+thread_local ThreadSafeIOStream threadSafeCout;
+
 void ThreadSafeIOStream::setPrefix(const std::string& prefix) {
   m_prefix = prefix;
 }

@@ -4,6 +4,7 @@
 #include <mutex>
 #include <sstream>
 #include <string>
+
 class ThreadSafeIOStream {
 
 public:
@@ -22,8 +23,9 @@ private:
 private:
   std::string m_prefix;
   bool m_startLine = true;
-  static std::mutex s_mutex;
+  inline static std::mutex s_mutex;
 };
+
 extern thread_local ThreadSafeIOStream threadSafeCout;
 
 template <typename T>
