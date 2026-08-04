@@ -11,6 +11,8 @@ add_library(libftpp
  srcs/DataStructure/DataBuffer/data_buffer.cpp
  srcs/DesignPatterns/Memento/memento.cpp
  srcs/IOStream/ThreadSafeIOStream/thread_safe_iostream.cpp
+ srcs/Thread/Thread/thread.cpp
+ srcs/Thread/WorkerPool/worker_pool.cpp
 )
 
 target_include_directories(
@@ -47,7 +49,6 @@ add_executable(
 
 target_link_libraries(
     MementoTest
-
     PRIVATE    libftpp
 )
 
@@ -81,3 +82,43 @@ target_link_libraries(
     PRIVATE libftpp
 )
 
+#Threads TEST
+add_executable(
+    ThreadSafeIOStreamTest
+    tests/IOStream/thread_safe_iostream_test.cpp
+)
+
+target_link_libraries(
+    ThreadSafeIOStreamTest
+    PRIVATE libftpp
+)
+
+add_executable(
+    ThreadSafeQueueTest
+    tests/Thread/thread_safe_queue_test.cpp
+)
+
+target_link_libraries(
+    ThreadSafeQueueTest
+    PRIVATE libftpp
+)
+
+add_executable(
+    ThreadTest
+    tests/Thread/thread_test.cpp
+)
+
+target_link_libraries(
+    ThreadTest
+    PRIVATE libftpp
+)
+
+add_executable(
+    WorkerPoolTest
+    tests/Thread/worker_pool_test.cpp
+)
+
+target_link_libraries(
+    WorkerPoolTest
+    PRIVATE libftpp
+)
