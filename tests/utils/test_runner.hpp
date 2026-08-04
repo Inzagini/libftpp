@@ -12,14 +12,15 @@ private:
     std::string suite;
     std::string name;
     std::function<void()> function;
+    bool shouldFail;
   };
 
   std::vector<Test> tests;
 
 public:
   void add(const std::string& suite, const std::string& name,
-           std::function<void()> function) {
-    tests.push_back({suite, name, function});
+           std::function<void()> function, const bool shouldFail = false) {
+    tests.push_back({suite, name, function, shouldFail});
   }
 
   int run() {
@@ -40,6 +41,9 @@ public:
       } catch (...) {
         success = false;
       }
+
+      if (test.shouldFail)
+        success = !success;
 
       if (success) {
         passed++;
