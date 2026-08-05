@@ -13,6 +13,7 @@ add_library(libftpp
  srcs/IOStream/ThreadSafeIOStream/thread_safe_iostream.cpp
  srcs/Thread/Thread/thread.cpp
  srcs/Thread/WorkerPool/worker_pool.cpp
+ srcs/Thread/PersistentWorker/persistent_worker.cpp
 )
 
 target_include_directories(
@@ -120,5 +121,15 @@ add_executable(
 
 target_link_libraries(
     WorkerPoolTest
+    PRIVATE libftpp
+)
+
+add_executable(
+    PersistentWorkerTest
+    tests/Thread/persistent_worker_test.cpp
+)
+
+target_link_libraries(
+    PersistentWorkerTest
     PRIVATE libftpp
 )
