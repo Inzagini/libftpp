@@ -6,6 +6,7 @@ project(libftpp
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
 
 add_library(libftpp
  srcs/DataStructure/DataBuffer/data_buffer.cpp
@@ -15,121 +16,98 @@ add_library(libftpp
  srcs/Thread/WorkerPool/worker_pool.cpp
  srcs/Thread/PersistentWorker/persistent_worker.cpp
 )
+# Helper function for all tests
+
+function(add_libftpp_test TARGET_NAME SOURCE)
+
+    add_executable(${TARGET_NAME} ${SOURCE})
+
+    target_link_libraries(${TARGET_NAME}
+
+        PRIVATE libftpp
+    )
+
+    set_target_properties(${TARGET_NAME}
+
+        PROPERTIES
+
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests
+    )
+
+endfunction()
 
 target_include_directories(
     libftpp
     PUBLIC ${PROJECT_SOURCE_DIR}/includes
 )
 
-#DataStructure TESTS
-add_executable(
+
+# =========================
+# DataStructure Tests
+# =========================
+
+add_libftpp_test(
     DataBufferTest
     tests/DataStructure/data_buffer_test.cpp
 )
 
-target_link_libraries(
-    DataBufferTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     PoolTest
     tests/DataStructure/pool_test.cpp
 )
+# =========================
+# DesignPatterns Tests
+# =========================
 
-target_link_libraries(
-    PoolTest
-    PRIVATE libftpp
-)
-
-#DesignPatterns TESTS
-add_executable(
+add_libftpp_test(
     MementoTest
     tests/DesignPatterns/memento_test.cpp
 )
 
-target_link_libraries(
-    MementoTest
-    PRIVATE    libftpp
-)
-
-add_executable(
+add_libftpp_test(
     ObserverTest
     tests/DesignPatterns/observer_test.cpp
 )
 
-target_link_libraries(
-    ObserverTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     SingletonTest
     tests/DesignPatterns/singleton_test.cpp
 )
 
-target_link_libraries(
-    SingletonTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     StateMachineTest
     tests/DesignPatterns/state_machine_test.cpp
 )
 
-target_link_libraries(
-    StateMachineTest
-    PRIVATE libftpp
-)
+# =========================
+# IOStream Tests
+# =========================
 
-#Threads TEST
-add_executable(
+add_libftpp_test(
     ThreadSafeIOStreamTest
     tests/IOStream/thread_safe_iostream_test.cpp
 )
 
-target_link_libraries(
-    ThreadSafeIOStreamTest
-    PRIVATE libftpp
-)
+# =========================
+# Thread Tests
+# =========================
 
-add_executable(
+add_libftpp_test(
     ThreadSafeQueueTest
     tests/Thread/thread_safe_queue_test.cpp
 )
 
-target_link_libraries(
-    ThreadSafeQueueTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     ThreadTest
     tests/Thread/thread_test.cpp
 )
 
-target_link_libraries(
-    ThreadTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     WorkerPoolTest
     tests/Thread/worker_pool_test.cpp
 )
 
-target_link_libraries(
-    WorkerPoolTest
-    PRIVATE libftpp
-)
-
-add_executable(
+add_libftpp_test(
     PersistentWorkerTest
     tests/Thread/persistent_worker_test.cpp
-)
-
-target_link_libraries(
-    PersistentWorkerTest
-    PRIVATE libftpp
 )
