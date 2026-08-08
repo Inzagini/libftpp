@@ -15,6 +15,7 @@ add_library(libftpp
  srcs/Thread/Thread/thread.cpp
  srcs/Thread/WorkerPool/worker_pool.cpp
  srcs/Thread/PersistentWorker/persistent_worker.cpp
+ srcs/Mathematics/IVector2/ivector2.cpp
 )
 # Helper function for all tests
 
@@ -110,4 +111,14 @@ add_libftpp_test(
 add_libftpp_test(
     PersistentWorkerTest
     tests/Thread/persistent_worker_test.cpp
+)
+
+
+# =========================
+# Mathematics Tests
+# =========================
+
+add_libftpp_test(
+    IVector2Test
+    tests/Mathematics/ivector2_test.cpp
 )
