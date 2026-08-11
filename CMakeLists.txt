@@ -17,6 +17,7 @@ add_library(libftpp
  srcs/Thread/PersistentWorker/persistent_worker.cpp
  srcs/Mathematics/IVector2/ivector2.cpp
  srcs/Mathematics/IVector3/ivector3.cpp
+ srcs/Mathematics/Random2DCoordinateGenerator/random_2D_coordinate_generator.cpp
 )
 # Helper function for all tests
 
@@ -127,4 +128,9 @@ add_libftpp_test(
 add_libftpp_test(
     IVector3Test
     tests/Mathematics/ivector3_test.cpp
+)
+
+add_libftpp_test(
+    Random2DCoordinateGenerator
+    tests/Mathematics/random_2D_coordinate_generator_test.cpp
 )
