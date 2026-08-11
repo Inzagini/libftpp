@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Mathematics/IVector3/ivector3.hpp"
 #include <cmath>
 template <typename T> struct IVector2 {
 
