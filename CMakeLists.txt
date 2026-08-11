@@ -18,6 +18,7 @@ add_library(libftpp
  srcs/Mathematics/IVector2/ivector2.cpp
  srcs/Mathematics/IVector3/ivector3.cpp
  srcs/Mathematics/Random2DCoordinateGenerator/random_2D_coordinate_generator.cpp
+ srcs/Mathematics/PerlinNoise2D/perlin_noise_2D.cpp
 )
 # Helper function for all tests
 
@@ -133,4 +134,10 @@ add_libftpp_test(
 add_libftpp_test(
     Random2DCoordinateGenerator
     tests/Mathematics/random_2D_coordinate_generator_test.cpp
+)
+
+
+add_libftpp_test(
+    PerlinNoise2DTest
+    tests/Mathematics/perlin_noise_2D_test.cpp
 )
