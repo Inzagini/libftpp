@@ -45,12 +45,31 @@ int main() {
       throw std::runtime_error("Left scalar multiplication failed");
   });
 
-  runner.add("IVector3", "ScalarDivision", []() {
+  runner.add("IVector3", "VectorDivision", []() {
+    IVector3<int> a{10, 20, 30};
+    IVector3<int> b{10, 20, 30};
+
+    auto result = a / b;
+
+    if (result != IVector3<int>{1, 1, 1})
+      throw std::runtime_error("Scalar division failed");
+  });
+
+  runner.add("IVector3", "ScalarDivisionRight", []() {
     IVector3<int> a{10, 20, 30};
 
     auto result = a / 10;
 
     if (result != IVector3<int>{1, 2, 3})
+      throw std::runtime_error("Scalar division failed");
+  });
+
+  runner.add("IVector3", "ScalarDivisionLeft", []() {
+    IVector3<int> a{10, 20, 25};
+
+    auto result = 100 / a;
+
+    if (result != IVector3<int>{10, 5, 4})
       throw std::runtime_error("Scalar division failed");
   });
 

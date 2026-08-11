@@ -59,6 +59,8 @@ constexpr IVector3<T> operator*(const T& scalar, const IVector3<T>& other) {
 
 template <typename T>
 constexpr IVector3<T> IVector3<T>::operator/(const IVector3<T>& other) const {
+  if (other.x == 0 || other.y == 0 || other.z == 0)
+    throw std::invalid_argument("Division by zero");
   return {x / other.x, y / other.y, z / other.z};
 };
 
@@ -66,8 +68,15 @@ template <typename T>
 constexpr IVector3<T> IVector3<T>::operator/(const T& scalar) const {
 
   if (scalar == 0)
-    throw std::invalid_argument("Scalar is zero");
-  return {x / scalar, y / scalar, y / scalar};
+    throw std::invalid_argument("Division by zero");
+  return {x / scalar, y / scalar, z / scalar};
+}
+
+template <typename T>
+constexpr IVector3<T> operator/(const T& scalar, const IVector3<T>& other) {
+  if (other.x == 0 || other.y == 0 || other.z == 0)
+    throw std::invalid_argument("Division by zero");
+  return {scalar / other.x, scalar / other.y, scalar / other.z};
 }
 
 template <typename T>
@@ -94,7 +103,7 @@ template <typename T> IVector3<float> IVector3<T>::normalize() const {
 }
 
 template <typename T> T IVector3<T>::dot(const IVector3<T>& other) const {
-  return {x * other.x + y * other.y + z * other.z};
+  return (x * other.x + y * other.y + z * other.z);
 }
 
 template <typename T>

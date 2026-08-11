@@ -2,6 +2,7 @@
 
 #include "Mathematics/IVector3/ivector3.hpp"
 #include <cmath>
+#include <stdexcept>
 template <typename T> struct IVector2 {
 
   T x{};
@@ -15,6 +16,7 @@ template <typename T> struct IVector2 {
   constexpr IVector2 operator*(const IVector2& other) const;
   constexpr IVector2 operator*(const T& scalar) const;
   constexpr IVector2 operator/(const IVector2& other) const;
+  constexpr IVector2 operator/(const T& scalar) const;
   constexpr bool operator==(const IVector2& other) const;
   constexpr bool operator!=(const IVector2& other) const;
 
@@ -58,8 +60,23 @@ constexpr IVector2<T> operator*(const T& scalar, const IVector2<T>& other) {
 
 template <typename T>
 constexpr IVector2<T> IVector2<T>::operator/(const IVector2<T>& other) const {
-
+  if (other.x == 0 || other.y)
+    throw std::invalid_argument("Division by zero");
   return {x / other.x, y / other.y};
+}
+
+template <typename T>
+constexpr IVector2<T> IVector2<T>::operator/(const T& scalar) const {
+  if (scalar == 0)
+    throw std::invalid_argument("Division by zero");
+  return {x / scalar, y / scalar};
+}
+
+template <typename T>
+constexpr IVector2<T> operator/(const T& scalar, const IVector2<T>& other) {
+  if (other.x == 0 || other.y == 0 || other.z == 0)
+    throw std::invalid_argument("Division by zero");
+  return {scalar / other.x, scalar / other.y};
 }
 
 template <typename T> float IVector2<T>::length() const {
