@@ -170,4 +170,6 @@ int main() {
     if (firstA != secondA || firstB != secondB)
       throw std::runtime_error("Result depends on previous calls");
   });
+
+  return runner.run();
 }

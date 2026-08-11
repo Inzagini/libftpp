@@ -11,8 +11,8 @@ long long Random2DCoordinateGenerator::operator()(const long long& x,
 
   std::uint64_t h = static_cast<std::uint64_t>(_seed);
 
-  h ^= static_cast<std::uint64_t>(x) + c + (h << 6) + (h >> 2);
-  h ^= static_cast<std::uint64_t>(y) + c + (h << 6) + (h >> 2);
+  h ^= static_cast<std::uint64_t>(x) + C + (h << 6) + (h >> 2);
+  h ^= static_cast<std::uint64_t>(y) + C + (h << 6) + (h >> 2);
 
   h ^= h >> 30;
   h *= splitA;
