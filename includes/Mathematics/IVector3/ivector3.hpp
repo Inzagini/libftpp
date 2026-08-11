@@ -1,17 +1,22 @@
 #pragma once
 
 #include <cmath>
+#include <stdexcept>
 template <typename T> struct IVector3 {
 
   T x{};
   T y{};
   T z{};
 
+  constexpr IVector3<T>() = default;
+  constexpr IVector3<T>(const T& x, const T& y, const T& z);
+
   constexpr IVector3<T> operator+(const IVector3<T>& other) const;
   constexpr IVector3<T> operator-(const IVector3<T>& other) const;
   constexpr IVector3<T> operator*(const IVector3<T>& other) const;
   constexpr IVector3<T> operator*(const T& scalar) const;
   constexpr IVector3<T> operator/(const IVector3<T>& other) const;
+  constexpr IVector3<T> operator/(const T& scalar) const;
 
   constexpr bool operator==(const IVector3<T>& other) const;
   constexpr bool operator!=(const IVector3<T>& other) const;
@@ -20,8 +25,12 @@ template <typename T> struct IVector3 {
 
   IVector3<float> normalize() const;
   T dot(const IVector3<T>& other) const;
-  T cross(const IVector3<T>& other) const;
+  IVector3<T> cross(const IVector3<T>& other) const;
 };
+
+template <typename T>
+constexpr IVector3<T>::IVector3(const T& x, const T& y, const T& z)
+    : x(x), y(y), z(z) {}
 
 template <typename T>
 constexpr IVector3<T> IVector3<T>::operator+(const IVector3<T>& other) const {
@@ -44,9 +53,22 @@ constexpr IVector3<T> IVector3<T>::operator*(const T& scalar) const {
 };
 
 template <typename T>
+constexpr IVector3<T> operator*(const T& scalar, const IVector3<T>& other) {
+  return {scalar * other.x, scalar * other.y, scalar * other.z};
+}
+
+template <typename T>
 constexpr IVector3<T> IVector3<T>::operator/(const IVector3<T>& other) const {
   return {x / other.x, y / other.y, z / other.z};
 };
+
+template <typename T>
+constexpr IVector3<T> IVector3<T>::operator/(const T& scalar) const {
+
+  if (scalar == 0)
+    throw std::invalid_argument("Scalar is zero");
+  return {x / scalar, y / scalar, y / scalar};
+}
 
 template <typename T>
 constexpr bool IVector3<T>::operator==(const IVector3<T>& other) const {
@@ -59,7 +81,8 @@ constexpr bool IVector3<T>::operator!=(const IVector3<T>& other) const {
 }
 
 template <typename T> float IVector3<T>::length() const {
-  return std::sqrt(static_cast<float>(x) * x + static_cast<float>(y) * y);
+  return std::sqrt(static_cast<float>(x) * x + static_cast<float>(y) * y +
+                   static_cast<float>(z) * z);
 }
 
 template <typename T> IVector3<float> IVector3<T>::normalize() const {
@@ -71,10 +94,11 @@ template <typename T> IVector3<float> IVector3<T>::normalize() const {
 }
 
 template <typename T> T IVector3<T>::dot(const IVector3<T>& other) const {
-  return {x * other.x, y * other.y, z * other.z};
+  return {x * other.x + y * other.y + z * other.z};
 }
 
-template <typename T> T IVector3<T>::cross(const IVector3<T>& other) const {
+template <typename T>
+IVector3<T> IVector3<T>::cross(const IVector3<T>& other) const {
   return {y * other.z - z * other.y, z * other.x - x * other.z,
           x * other.y - y * other.x};
 }
