@@ -1,11 +1,11 @@
-#include "../utils/test_runner.hpp"
 #include "Mathematics/PerlinNoise2D/perlin_noise_2D.hpp"
+#include "Tester/runner.hpp"
 
 #include <cmath>
 #include <stdexcept>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   // 1. Same coordinates must always produce the same value.
   runner.add("PerlinNoise2D", "Deterministic", []() {

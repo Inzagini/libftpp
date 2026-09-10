@@ -1,11 +1,12 @@
-#include "../utils/test_runner.hpp"
+// #include "../utils/test_runner.hpp"
 #include "Mathematics/IVector2/ivector2.hpp"
+#include "Tester/runner.hpp"
 
 #include <cmath>
 #include <stdexcept>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   runner.add("IVector2", "Addition", []() {
     IVector2<int> a{1, 2};

@@ -1,6 +1,5 @@
 #include "DesignPatterns/StateMachine/state_machine.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <stdexcept>
@@ -13,12 +12,9 @@ bool operator<(State a, State b) {
 }
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
-  /*
-      BASIC ACTION
-  */
-
+  // BASIC ACTION
   runner.add("StateMachine", "ExecuteCurrentStateAction", []() {
     StateMachine<State> machine;
 
@@ -33,10 +29,7 @@ int main() {
     assert(called);
   });
 
-  /*
-      BASIC TRANSITION
-  */
-
+  // BASIC TRANSITION
   runner.add("StateMachine", "ExecuteTransition", []() {
     StateMachine<State> machine;
 
@@ -60,10 +53,7 @@ int main() {
     assert(walking);
   });
 
-  /*
-      MULTIPLE STATES
-  */
-
+  // MULTIPLE STATES
   runner.add("StateMachine", "MultipleTransitions", []() {
     StateMachine<State> machine;
 
@@ -88,10 +78,7 @@ int main() {
     assert(running);
   });
 
-  /*
-      UPDATE WITHOUT ACTION
-  */
-
+  // UPDATE WITHOUT ACTION
   runner.add("StateMachine", "MissingActionThrows", []() {
     StateMachine<State> machine;
 
@@ -108,10 +95,7 @@ int main() {
     assert(thrown);
   });
 
-  /*
-      TRANSITION DOES NOT EXIST
-  */
-
+  // TRANSITION DOES NOT EXIST
   runner.add("StateMachine", "MissingTransitionThrows", []() {
     StateMachine<State> machine;
 
@@ -129,10 +113,7 @@ int main() {
     assert(thrown);
   });
 
-  /*
-      UNKNOWN STATE
-  */
-
+  // UNKNOWN STATE
   runner.add("StateMachine", "UnknownStateThrows", []() {
     StateMachine<State> machine;
 
@@ -149,10 +130,7 @@ int main() {
     assert(thrown);
   });
 
-  /*
-      ACTION ONLY RUNS FOR CURRENT STATE
-  */
-
+  // ACTION ONLY RUNS FOR CURRENT STATE
   runner.add("StateMachine", "OnlyCurrentStateRuns", []() {
     StateMachine<State> machine;
 
@@ -172,10 +150,7 @@ int main() {
     assert(!walking);
   });
 
-  /*
-      DUPLICATE STATE
-  */
-
+  // DUPLICATE STATE
   runner.add("StateMachine", "DuplicateState", []() {
     StateMachine<State> machine;
 
@@ -185,10 +160,7 @@ int main() {
     // should not crash
   });
 
-  /*
-      TRANSITION CALLBACK ONLY ON TRANSITION
-  */
-
+  // TRANSITION CALLBACK ONLY ON TRANSITION
   runner.add("StateMachine", "TransitionCallbackNotRepeated", []() {
     StateMachine<State> machine;
 

@@ -1,9 +1,12 @@
+
 #pragma once
 
 #include <iostream>
 #include <string>
 
-class TestPrinter {
+namespace Test {
+
+class Printer {
 
 private:
   // ANSI color codes
@@ -45,4 +48,10 @@ public:
               << '\n';
     std::cout << "=========================================\n";
   }
+
+  static void TestTime(const std::chrono::nanoseconds time) {
+    std::cout << "Time: " << BOLD << YELLOW << time.count() << RESET << "\n";
+    std::cout << "=========================================\n";
+  }
 };
+} // namespace Test

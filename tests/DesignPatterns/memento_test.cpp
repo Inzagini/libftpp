@@ -1,6 +1,5 @@
 #include "DesignPatterns/Memento/memento.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <string>
@@ -34,7 +33,7 @@ public:
 };
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   /*
       BASIC SAVE / LOAD

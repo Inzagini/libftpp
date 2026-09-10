@@ -1,10 +1,9 @@
-#include "../utils/test_runner.hpp"
 #include "Mathematics/Random2DCoordinateGenerator/random_2D_coordinate_generator.hpp"
-
+#include "Tester/runner.hpp"
 #include <stdexcept>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   runner.add("Random2DCoordinateGenerator", "Seed", []() {
     Random2DCoordinateGenerator generator(42);
@@ -13,10 +12,7 @@ int main() {
       throw std::runtime_error("Seed was not stored correctly");
   });
 
-  // ------------------------------------------------------------
   // Determinism
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "SameInputSameResult", []() {
     Random2DCoordinateGenerator generator(42);
 
@@ -39,10 +35,7 @@ int main() {
     }
   });
 
-  // ------------------------------------------------------------
   // Different coordinates
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "DifferentX", []() {
     Random2DCoordinateGenerator generator(42);
 
@@ -74,10 +67,7 @@ int main() {
           "Different coordinates produced the same result");
   });
 
-  // ------------------------------------------------------------
   // Different seeds
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "DifferentSeeds", []() {
     Random2DCoordinateGenerator firstGenerator(42);
     Random2DCoordinateGenerator secondGenerator(43);
@@ -89,10 +79,7 @@ int main() {
       throw std::runtime_error("Different seeds produced the same result");
   });
 
-  // ------------------------------------------------------------
   // Negative coordinates
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "NegativeCoordinates", []() {
     Random2DCoordinateGenerator generator(42);
 
@@ -114,10 +101,7 @@ int main() {
           "Mixed positive/negative coordinates produced same result");
   });
 
-  // ------------------------------------------------------------
   // Boundary values
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "ZeroCoordinates", []() {
     Random2DCoordinateGenerator generator(42);
 
@@ -141,10 +125,7 @@ int main() {
       throw std::runtime_error("Large coordinates are not deterministic");
   });
 
-  // ------------------------------------------------------------
   // Different generator instances
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "DifferentInstancesSameSeed", []() {
     Random2DCoordinateGenerator first(42);
     Random2DCoordinateGenerator second(42);
@@ -154,10 +135,7 @@ int main() {
                                "across instances");
   });
 
-  // ------------------------------------------------------------
   // Order independence
-  // ------------------------------------------------------------
-
   runner.add("Random2DCoordinateGenerator", "OrderIndependent", []() {
     Random2DCoordinateGenerator generator(42);
 

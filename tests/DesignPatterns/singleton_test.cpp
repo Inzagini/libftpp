@@ -1,13 +1,10 @@
 #include "DesignPatterns/Singleton/singleton.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <string>
 
-/*
-    TEST SINGLETON CLASS
-*/
+// TEST SINGLETON CLASS
 
 class Logger {
 
@@ -25,10 +22,7 @@ public:
   const std::string& getName() const { return name; }
 };
 
-/*
-    SECOND SINGLETON TYPE
-*/
-
+// SECOND SINGLETON TYPE
 class Counter {
 
   friend class Singleton<Counter>;
@@ -43,12 +37,9 @@ public:
 };
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
-  /*
-      BASIC INSTANTIATION
-  */
-
+  // BASIC INSTANTIATION
   runner.add("Singleton", "CreateInstance", []() {
     Singleton<Logger> manager;
 
@@ -63,10 +54,7 @@ int main() {
     manager.destroy();
   });
 
-  /*
-      SAME INSTANCE
-  */
-
+  // SAME INSTANCE
   runner.add("Singleton", "SameInstanceReturned", []() {
     Singleton<Logger> manager;
 
@@ -81,10 +69,7 @@ int main() {
     manager.destroy();
   });
 
-  /*
-      DOUBLE INSTANTIATION SHOULD FAIL
-  */
-
+  // DOUBLE INSTANTIATION SHOULD FAIL
   runner.add("Singleton", "MultipleInstantiationThrows", []() {
     Singleton<Logger> manager;
 
@@ -103,10 +88,7 @@ int main() {
     manager.destroy();
   });
 
-  /*
-      DESTROY AND RECREATE
-  */
-
+  // DESTROY AND RECREATE
   runner.add("Singleton", "DestroyAndRecreate", []() {
     Singleton<Logger> manager;
 
@@ -123,10 +105,7 @@ int main() {
     manager.destroy();
   });
 
-  /*
-      INSTANCE BEFORE CREATION
-  */
-
+  // INSTANCE BEFORE CREATION
   runner.add("Singleton", "InstanceBeforeCreation", []() {
     Singleton<Logger> manager;
 
@@ -135,10 +114,7 @@ int main() {
     assert(logger == nullptr);
   });
 
-  /*
-      DIFFERENT SINGLETON TYPES
-  */
-
+  // DIFFERENT SINGLETON TYPES
   runner.add("Singleton", "DifferentTypesIndependent", []() {
     Singleton<Logger> loggerManager;
 

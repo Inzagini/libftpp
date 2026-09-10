@@ -1,12 +1,15 @@
+
 #pragma once
 
-#include "test_printer.hpp"
+#include "printer.hpp"
 
 #include <functional>
 #include <string>
 #include <vector>
 
-class TestRunner {
+namespace Test {
+
+class Runner {
 private:
   struct Test {
     std::string suite;
@@ -28,7 +31,7 @@ public:
     int failed = 0;
 
     for (auto& test : tests) {
-      TestPrinter::OnTestStart(test.suite, test.name);
+      Printer::OnTestStart(test.suite, test.name);
 
       bool success = true;
 
@@ -51,11 +54,12 @@ public:
         failed++;
       }
 
-      TestPrinter::OnTestEnd(test.suite, test.name, success);
+      Printer::OnTestEnd(test.suite, test.name, success);
     }
 
-    TestPrinter::OnTestProgramEnd(tests.size(), passed, failed);
+    Printer::OnTestProgramEnd(tests.size(), passed, failed);
 
     return failed;
   }
 };
+} // namespace Test

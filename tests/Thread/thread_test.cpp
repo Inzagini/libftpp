@@ -1,6 +1,5 @@
+#include "Tester/runner.hpp"
 #include "Thread/Thread/thread.hpp"
-
-#include "../utils/test_runner.hpp"
 
 #include <atomic>
 #include <cassert>
@@ -8,7 +7,7 @@
 #include <thread>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   // THREAD DOES NOT START AUTOMATICALLY
 

@@ -1,6 +1,5 @@
+#include "Tester/runner.hpp"
 #include "Thread/threading.hpp"
-
-#include "../utils/test_runner.hpp"
 
 #include <atomic>
 #include <cassert>
@@ -8,7 +7,7 @@
 #include <thread>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   /*
       BASIC JOB EXECUTION
@@ -78,7 +77,6 @@ int main() {
       std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 
-    // More than one worker executed at the same time
     assert(maxRunning > 1);
   });
 
@@ -134,7 +132,6 @@ int main() {
       WorkerPool pool(4);
     }
 
-    // If destructor hangs/crashes, test fails
     assert(true);
   });
 

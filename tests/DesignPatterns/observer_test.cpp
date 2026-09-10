@@ -1,6 +1,5 @@
 #include "DesignPatterns/Observer/observer.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <string>
@@ -8,12 +7,9 @@
 enum class Event { START, STOP, UPDATE };
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
-  /*
-      BASIC SUBSCRIBE / NOTIFY
-  */
-
+  // BASIC SUBSCRIBE / NOTIFY
   runner.add("Observer", "BasicNotify", []() {
     Observer<Event> observer;
 
@@ -26,10 +22,7 @@ int main() {
     assert(called);
   });
 
-  /*
-      MULTIPLE SUBSCRIBERS
-  */
-
+  // MULTIPLE SUBSCRIBERS
   runner.add("Observer", "MultipleSubscribers", []() {
     Observer<Event> observer;
 
@@ -44,10 +37,7 @@ int main() {
     assert(counter == 2);
   });
 
-  /*
-      EVENTS ARE INDEPENDENT
-  */
-
+  // EVENTS ARE INDEPENDENT
   runner.add("Observer", "DifferentEvents", []() {
     Observer<Event> observer;
 
@@ -64,22 +54,15 @@ int main() {
     assert(!stop);
   });
 
-  /*
-      UNKNOWN EVENT
-  */
-
+  // UNKNOWN EVENT
   runner.add("Observer", "NotifyUnknownEvent", []() {
     Observer<Event> observer;
 
     // should not throw
-
     observer.notify(Event::UPDATE);
   });
 
-  /*
-      SAME CALLBACK TWICE
-  */
-
+  // SAME CALLBACK TWICE
   runner.add("Observer", "DuplicateSubscription", []() {
     Observer<Event> observer;
 
@@ -96,10 +79,7 @@ int main() {
     assert(count == 2);
   });
 
-  /*
-      CALLBACK MODIFIES OBJECT
-  */
-
+  // CALLBACK MODIFIES OBJECT
   runner.add("Observer", "CallbackStateChange", []() {
     Observer<Event> observer;
 
@@ -112,10 +92,7 @@ int main() {
     assert(value == 15);
   });
 
-  /*
-      MULTIPLE NOTIFICATIONS
-  */
-
+  // MULTIPLE NOTIFICATIONS
   runner.add("Observer", "MultipleNotifyCalls", []() {
     Observer<Event> observer;
 
@@ -130,10 +107,7 @@ int main() {
     assert(count == 3);
   });
 
-  /*
-      CALLBACK EXCEPTION
-  */
-
+  // CALLBACK EXCEPTION
   runner.add("Observer", "CallbackThrows", []() {
     Observer<Event> observer;
 

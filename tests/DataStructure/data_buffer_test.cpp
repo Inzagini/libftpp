@@ -1,6 +1,5 @@
 #include "DataStructure/DataBuffer/data_buffer.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <string>
@@ -11,12 +10,9 @@ struct TestStruct {
 };
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
-  /*
-      BASIC INT WRITE / READ
-  */
-
+  // BASIC INT WRITE / READ
   runner.add("DataBuffer", "WriteReadInt", []() {
     DataBuffer buffer(16);
 
@@ -31,10 +27,7 @@ int main() {
     assert(output == 42);
   });
 
-  /*
-      MULTIPLE VALUES ORDER
-  */
-
+  // MULTIPLE VALUES ORDER
   runner.add("DataBuffer", "PreserveOrder", []() {
     DataBuffer buffer(32);
 
@@ -54,10 +47,7 @@ int main() {
     assert(readB == b);
   });
 
-  /*
-      STRING SERIALIZATION
-  */
-
+  // STRING SERIALIZATION
   runner.add("DataBuffer", "WriteReadString", []() {
     DataBuffer buffer(64);
 
@@ -72,20 +62,14 @@ int main() {
     assert(output == input);
   });
 
-  /*
-      EMPTY BUFFER
-  */
-
+  // EMPTY BUFFER
   runner.add("DataBuffer", "EmptyInitially", []() {
     DataBuffer buffer(32);
 
     assert(buffer.empty());
   });
 
-  /*
-      SIZE TRACKING
-  */
-
+  // SIZE TRACKING
   runner.add("DataBuffer", "SizeChanges", []() {
     DataBuffer buffer(32);
 

@@ -1,4 +1,4 @@
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 #include "Thread/PersistentWorker/persistent_worker.hpp"
 
 #include <atomic>
@@ -7,7 +7,7 @@
 #include <thread>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   /*
       SINGLE TASK EXECUTION

@@ -1,6 +1,5 @@
 #include "DataStructure/Pool/pool.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <string>
@@ -26,12 +25,9 @@ public:
 int Player::alive = 0;
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
-  /*
-      BASIC ACQUIRE
-  */
-
+  // BASIC ACQUIRE
   runner.add("Pool", "AcquireObject", []() {
     Pool<Player> pool(2);
 
@@ -41,10 +37,7 @@ int main() {
     assert(player->getName() == "Knight");
   });
 
-  /*
-      CONSTRUCTOR ARGUMENTS
-  */
-
+  // CONSTRUCTOR ARGUMENTS
   runner.add("Pool", "ForwardConstructorArguments", []() {
     Pool<Player> pool(1);
 
@@ -54,10 +47,7 @@ int main() {
     assert(player->getName() == "Mage");
   });
 
-  /*
-      FULL POOL
-  */
-
+  // FULL POOL
   runner.add("Pool", "AcquireWhenFullThrows", []() {
     Pool<Player> pool(1);
 
@@ -74,10 +64,7 @@ int main() {
     assert(thrown);
   });
 
-  /*
-      AUTOMATIC RELEASE
-  */
-
+  // AUTOMATIC RELEASE
   runner.add("Pool", "ObjectAutomaticallyReleased", []() {
     Pool<Player> pool(1);
 
@@ -90,10 +77,7 @@ int main() {
     assert(second->getHP() == 200);
   });
 
-  /*
-      DESTRUCTOR CALLED
-  */
-
+  // DESTRUCTOR CALLED
   runner.add("Pool", "DestructorCalled", []() {
     assert(Player::alive == 0);
 
@@ -110,10 +94,7 @@ int main() {
     assert(Player::alive == 0);
   });
 
-  /*
-      MOVE CONSTRUCTOR
-  */
-
+  // MOVE CONSTRUCTOR
   runner.add("Pool", "MoveObject", []() {
     Pool<Player> pool(1);
 
@@ -124,10 +105,7 @@ int main() {
     assert(second->getHP() == 100);
   });
 
-  /*
-      MOVE ASSIGNMENT
-  */
-
+  // MOVE ASSIGNMENT
   runner.add("Pool", "MoveAssignment", []() {
     Pool<Player> pool(2);
 
@@ -140,10 +118,7 @@ int main() {
     assert(second->getHP() == 100);
   });
 
-  /*
-      RESIZE EMPTY POOL
-  */
-
+  // RESIZE EMPTY POOL
   runner.add("Pool", "ResizeEmptyPool", []() {
     Pool<Player> pool(2);
 
@@ -154,10 +129,7 @@ int main() {
     assert(object->getHP() == 100);
   });
 
-  /*
-      RESIZE WITH ACTIVE OBJECTS
-  */
-
+  // RESIZE WITH ACTIVE OBJECTS
   runner.add("Pool", "ResizeWithObjectsThrows", []() {
     Pool<Player> pool(2);
 
@@ -174,10 +146,7 @@ int main() {
     assert(thrown);
   });
 
-  /*
-      REUSE AFTER RELEASE
-  */
-
+  // REUSE AFTER RELEASE
   runner.add("Pool", "ReuseReleasedMemory", []() {
     Pool<Player> pool(1);
 

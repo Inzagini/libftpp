@@ -1,6 +1,5 @@
+#include "Tester/runner.hpp"
 #include "Thread/ThreadSafeQueue/thread_safe_queue.hpp"
-
-#include "../utils/test_runner.hpp"
 
 #include <cassert>
 #include <string>
@@ -8,7 +7,7 @@
 #include <vector>
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   /*
       PUSH BACK / POP FRONT FIFO

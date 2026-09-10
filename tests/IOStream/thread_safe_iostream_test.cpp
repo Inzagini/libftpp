@@ -1,6 +1,5 @@
 #include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
-
-#include "../utils/test_runner.hpp"
+#include "Tester/runner.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -25,7 +24,7 @@ private:
 };
 
 int main() {
-  TestRunner runner;
+  Test::Runner runner;
 
   /*
       BASIC OUTPUT
