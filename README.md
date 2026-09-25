@@ -25,7 +25,7 @@ libftpp provides a compact foundation that other projects can depend on instead 
 - **Threading**: `Thread`, `ThreadSafeQueue`, `WorkerPool` (with the `IJobs` job interface) and `PersistentWorker`.
 - **Networking**: non-blocking TCP `Server` and `Client` built on a serializable `Message`.
 - **Mathematics**: `IVector2`, `IVector3`, `PerlinNoise2D` and `Random2DCoordinateGenerator`.
-- **I/O**: `ThreadSafeIOStream` with per-thread prefixes.
+- **I/O**: `ThreadSafeIOStream` with per-thread prefixes and a level-filtered, thread-safe `Log`.
 - **Utilities**: a `Timer` and a small `Tester` runner/printer.
 - Header-first, template-based design with CMake integration.
 - Lightweight and easy to extend.
@@ -57,6 +57,8 @@ libftpp/
 │   │   └── StateMachine/
 │   │       └── state_machine.hpp
 │   ├── IOStream/
+│   │   ├── Log/
+│   │   │   └── log.hpp
 │   │   └── ThreadSafeIOStream/
 │   │       └── thread_safe_iostream.hpp
 │   ├── Mathematics/
@@ -98,6 +100,7 @@ libftpp/
 │   ├── DesignPatterns/
 │   │   └── Memento/memento.cpp
 │   ├── IOStream/
+│   │   ├── Log/log.cpp
 │   │   └── ThreadSafeIOStream/thread_safe_iostream.cpp
 │   ├── Mathematics/
 │   │   ├── IVector2/ivector2.cpp
@@ -125,6 +128,7 @@ libftpp/
     │   ├── singleton_test.cpp
     │   └── state_machine_test.cpp
     ├── IOStream/
+    │   ├── log_test.cpp
     │   └── thread_safe_iostream_test.cpp
     ├── Mathematics/
     │   ├── IVector2_test.cpp

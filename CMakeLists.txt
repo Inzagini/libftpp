@@ -15,6 +15,7 @@ add_library(libftpp
  srcs/DataStructure/DataBuffer/data_buffer.cpp
  srcs/DesignPatterns/Memento/memento.cpp
  srcs/IOStream/ThreadSafeIOStream/thread_safe_iostream.cpp
+ srcs/IOStream/Log/log.cpp
  srcs/Thread/Thread/thread.cpp
  srcs/Thread/WorkerPool/worker_pool.cpp
  srcs/Thread/PersistentWorker/persistent_worker.cpp
@@ -101,6 +102,11 @@ add_libftpp_test(
 add_libftpp_test(
     ThreadSafeIOStreamTest
     tests/IOStream/thread_safe_iostream_test.cpp
+)
+
+add_libftpp_test(
+    LogTest
+    tests/IOStream/log_test.cpp
 )
 
 # =========================
