@@ -47,7 +47,8 @@ libftpp/
 │   │   ├── Pool/
 │   │   │   └── pool.hpp
 │   │   └── RingBuffer/
-│   │       └── ring_buffer.hpp
+│   │       ├── ring_buffer.hpp
+│   │       └── ring_buffer.tpp
 │   ├── DesignPatterns/
 │   │   ├── design_patterns.hpp
 │   │   ├── Memento/
