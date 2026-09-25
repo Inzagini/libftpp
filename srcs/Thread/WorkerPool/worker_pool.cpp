@@ -25,6 +25,10 @@ void WorkerPool::addJob(const std::function<void()>& job) {
   _job.push_back(job);
 }
 
+void WorkerPool::addJob(IJobs& job) {
+  addJob([&job]() { job.execute(); });
+}
+
 void WorkerPool::workerLoop() {
   while (_running) {
 

@@ -22,7 +22,7 @@ libftpp provides a compact foundation that other projects can depend on instead 
 
 - **Data structures**: binary `DataBuffer` and a fixed-size object `Pool`.
 - **Design patterns**: `Memento`, `Observer`, `Singleton` and `StateMachine`.
-- **Threading**: `Thread`, `ThreadSafeQueue`, `WorkerPool` and `PersistentWorker`.
+- **Threading**: `Thread`, `ThreadSafeQueue`, `WorkerPool` (with the `IJobs` job interface) and `PersistentWorker`.
 - **Networking**: non-blocking TCP `Server` and `Client` built on a serializable `Message`.
 - **Mathematics**: `IVector2`, `IVector3`, `PerlinNoise2D` and `Random2DCoordinateGenerator`.
 - **I/O**: `ThreadSafeIOStream` with per-thread prefixes.

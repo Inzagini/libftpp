@@ -135,5 +135,35 @@ int main() {
     assert(true);
   });
 
+  /*
+      IJobs INTERFACE
+  */
+
+  runner.add("WorkerPool", "ExecuteIJobs", []() {
+    class CounterJob : public WorkerPool::IJobs {
+    public:
+      explicit CounterJob(std::atomic<int>& counter) : _counter(counter) {}
+
+      void execute() override { _counter++; }
+
+    private:
+      std::atomic<int>& _counter;
+    };
+
+    std::atomic<int> counter = 0;
+
+    CounterJob job(counter);
+
+    {
+      WorkerPool pool(2);
+
+      pool.addJob(job);
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+
+    assert(counter == 1);
+  });
+
   return runner.run();
 }
