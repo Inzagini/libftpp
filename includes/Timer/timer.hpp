@@ -2,17 +2,17 @@
 
 #include <chrono>
 #include <functional>
+#include <utility>
 
 struct Timer {
-
-  static std::chrono::nanoseconds run(const std::function<void()>& f) {
+  template <typename T> static auto run(T&& f) {
 
     auto start = std::chrono::steady_clock::now();
 
-    f();
+    auto res = std::invoke(std::forward<T>(f));
 
     auto end = std::chrono::steady_clock::now();
 
-    return end - start;
+    return std::pair{end - start, std::move(res)};
   }
 };

@@ -50,7 +50,8 @@ public:
   }
 
   static void TestTime(const std::chrono::nanoseconds time) {
-    std::cout << "Time: " << BOLD << YELLOW << time.count() << RESET << "\n";
+    std::cout << "Time: " << BOLD << YELLOW << time.count() << " ns" << RESET
+              << "\n";
     std::cout << "=========================================\n";
   }
 };

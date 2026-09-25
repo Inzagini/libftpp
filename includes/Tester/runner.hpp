@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "Timer/timer.hpp"
 #include "printer.hpp"
 
 #include <functional>
@@ -27,6 +28,13 @@ public:
   }
 
   int run() {
+    auto [time, res] = Timer::run([this] { return runTest(); });
+    Printer::TestTime(time);
+
+    return res;
+  }
+
+  int runTest() {
     int passed = 0;
     int failed = 0;
 
