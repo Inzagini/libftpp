@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+add_compile_options(-Wall -Wextra -Werror)
+
 add_library(libftpp
  srcs/DataStructure/DataBuffer/data_buffer.cpp
  srcs/DesignPatterns/Memento/memento.cpp
@@ -19,7 +21,12 @@ add_library(libftpp
  srcs/Mathematics/IVector2/ivector2.cpp
  srcs/Mathematics/IVector3/ivector3.cpp
  srcs/Mathematics/Random2DCoordinateGenerator/random_2D_coordinate_generator.cpp
- srcs/Mathematics/PerlinNoise2D/perlin_noise_2D.cpp
+ srcs/Mathematics/PerlinNoise2d/perlin_noise_2D.cpp
+ srcs/Network/Client/client.cpp
+ srcs/Network/Message/message.cpp
+ srcs/Network/Server/server.cpp
+ srcs/Tester/printer.cpp
+ srcs/Tester/runner.cpp
 )
 # Helper function for all tests
 
@@ -43,8 +50,11 @@ endfunction()
 
 target_include_directories(
     libftpp
+    PUBLIC ${PROJECT_SOURCE_DIR}
     PUBLIC ${PROJECT_SOURCE_DIR}/includes
 )
+
+set_target_properties(libftpp PROPERTIES OUTPUT_NAME ftpp)
 
 
 # =========================
@@ -124,7 +134,7 @@ add_libftpp_test(
 
 add_libftpp_test(
     IVector2Test
-    tests/Mathematics/ivector2_test.cpp
+    tests/Mathematics/IVector2_test.cpp
 )
 
 add_libftpp_test(
