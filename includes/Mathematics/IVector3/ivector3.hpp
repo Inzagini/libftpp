@@ -8,8 +8,8 @@ template <typename T> struct IVector3 {
   T y{};
   T z{};
 
-  constexpr IVector3<T>() = default;
-  constexpr IVector3<T>(const T& x, const T& y, const T& z);
+  constexpr IVector3() = default;
+  constexpr IVector3(const T& x, const T& y, const T& z);
 
   constexpr IVector3<T> operator+(const IVector3<T>& other) const;
   constexpr IVector3<T> operator-(const IVector3<T>& other) const;

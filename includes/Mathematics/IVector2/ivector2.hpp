@@ -60,7 +60,7 @@ constexpr IVector2<T> operator*(const T& scalar, const IVector2<T>& other) {
 
 template <typename T>
 constexpr IVector2<T> IVector2<T>::operator/(const IVector2<T>& other) const {
-  if (other.x == 0 || other.y)
+  if (other.x == 0 || other.y == 0)
     throw std::invalid_argument("Division by zero");
   return {x / other.x, y / other.y};
 }
@@ -74,7 +74,7 @@ constexpr IVector2<T> IVector2<T>::operator/(const T& scalar) const {
 
 template <typename T>
 constexpr IVector2<T> operator/(const T& scalar, const IVector2<T>& other) {
-  if (other.x == 0 || other.y == 0 || other.z == 0)
+  if (other.x == 0 || other.y == 0)
     throw std::invalid_argument("Division by zero");
   return {scalar / other.x, scalar / other.y};
 }

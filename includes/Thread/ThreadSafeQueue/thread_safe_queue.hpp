@@ -1,6 +1,5 @@
 #pragma once
 
-#include <arm/endian.h>
 #include <condition_variable>
 #include <deque>
 #include <mutex>

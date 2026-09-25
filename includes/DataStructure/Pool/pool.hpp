@@ -24,7 +24,7 @@ template <typename T> class Pool {
     Slot* _slot;
     Pool* _owner;
 
-    Object(Pool* owner, Slot* slot) : _owner(owner), _slot(slot) {};
+    Object(Pool* owner, Slot* slot) : _slot(slot), _owner(owner) {};
 
   public:
     Object(const Object&) = delete;
