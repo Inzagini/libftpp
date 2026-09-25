@@ -1,17 +1,12 @@
 #include "DesignPatterns/Memento/memento.hpp"
 
-// test case
+Memento::Snapshot Memento::save() {
+  Snapshot snapshot;
+  _saveToSnapshot(snapshot);
 
-class Player : public Memento {
+  return snapshot;
+}
 
-  friend class Memento;
-
-private:
-  int hp = 100;
-
-  void _saveToSnapshot(Snapshot& snapshot) const { snapshot["hp"] = hp; }
-
-  void _loadFromSnapshot(Snapshot& snapshot) {
-    hp = std::any_cast<int>(snapshot["hp"]);
-  }
-};
+void Memento::load(const Snapshot& snapshot) {
+  _loadFromSnapshot(const_cast<Snapshot&>(snapshot));
+}
