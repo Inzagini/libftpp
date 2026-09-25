@@ -4,6 +4,7 @@ thread_local ThreadSafeIOStream threadSafeCout;
 
 void ThreadSafeIOStream::setPrefix(const std::string& prefix) {
   m_prefix = prefix;
+  m_startLine = true;
 }
 
 void ThreadSafeIOStream::printPrefixIfNeeded() {

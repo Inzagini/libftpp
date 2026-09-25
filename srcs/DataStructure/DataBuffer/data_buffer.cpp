@@ -1,7 +1,7 @@
 #include "DataStructure/DataBuffer/data_buffer.hpp"
 #include <stdexcept>
 
-std::size_t DataBuffer::size() const { return _buffer.size(); }
+std::size_t DataBuffer::size() const { return _size; }
 
 void DataBuffer::clear() {
   _readpos = 0;
