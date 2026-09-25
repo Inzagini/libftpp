@@ -20,7 +20,7 @@ libftpp provides a compact foundation that other projects can depend on instead 
 
 ## Features ✨
 
-- **Data structures**: binary `DataBuffer` and a fixed-size object `Pool`.
+- **Data structures**: binary `DataBuffer`, a fixed-size object `Pool`, and a raw-memory `RingBuffer`.
 - **Design patterns**: `Memento`, `Observer`, `Singleton` and `StateMachine`.
 - **Threading**: `Thread`, `ThreadSafeQueue`, `WorkerPool` (with the `IJobs` job interface) and `PersistentWorker`.
 - **Networking**: non-blocking TCP `Server` and `Client` built on a serializable `Message`.
@@ -44,8 +44,10 @@ libftpp/
 │   │   ├── data_structures.hpp
 │   │   ├── DataBuffer/
 │   │   │   └── data_buffer.hpp
-│   │   └── Pool/
-│   │       └── pool.hpp
+│   │   ├── Pool/
+│   │   │   └── pool.hpp
+│   │   └── RingBuffer/
+│   │       └── ring_buffer.hpp
 │   ├── DesignPatterns/
 │   │   ├── design_patterns.hpp
 │   │   ├── Memento/
@@ -121,7 +123,8 @@ libftpp/
 └── tests/
     ├── DataStructure/
     │   ├── data_buffer_test.cpp
-    │   └── pool_test.cpp
+    │   ├── pool_test.cpp
+    │   └── ring_buffer_test.cpp
     ├── DesignPatterns/
     │   ├── memento_test.cpp
     │   ├── observer_test.cpp

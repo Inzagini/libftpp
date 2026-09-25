@@ -71,6 +71,11 @@ add_libftpp_test(
     PoolTest
     tests/DataStructure/pool_test.cpp
 )
+
+add_libftpp_test(
+    RingBufferTest
+    tests/DataStructure/ring_buffer_test.cpp
+)
 # =========================
 # DesignPatterns Tests
 # =========================
