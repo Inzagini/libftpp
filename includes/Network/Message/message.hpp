@@ -26,10 +26,10 @@ public:
 
 private:
   template <typename T> void serialize(const T& value);
-  template <typename T> void serialize(const std::string& value);
+  void serialize(const std::string& value);
 
-  template <typename T> void deserialize(const T& value);
-  template <typename T> void deserialize(const std::string& value);
+  template <typename T> void deserialize(T& value);
+  void deserialize(std::string& value);
 
 private:
   Type _type;

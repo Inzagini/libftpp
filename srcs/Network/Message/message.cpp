@@ -1,12 +1,14 @@
 #include "Network/Message/message.hpp"
 
-Message::Message(Type type) : _type(type) {}
+Message::Message(Type type) : _type(type), _readPos(0) {}
 
 Message::Type Message::type() const { return _type; }
 
 const std::vector<uint8_t>& Message::data() const { return _data; }
 
 std::vector<uint8_t>& Message::data() { return _data; }
+
+void Message::resetRead() { _readPos = 0; }
 
 template <typename T> Message& Message::operator<<(const T& value) {
   serialize(value);
@@ -27,10 +29,10 @@ template <typename T> void Message::serialize(const T& value) {
   std::memcpy(_data.data() + oldSize, &value, sizeof(T));
 }
 
-template <typename T> void Message::serialize(const std::string& value) {
+void Message::serialize(const std::string& value) {
   std::uint32_t size = static_cast<uint32_t>(value.size());
 
-  serialize(size);
+  *this << size;
 
   const size_t oldSize = _data.size();
   _data.resize(oldSize + size);
@@ -38,22 +40,21 @@ template <typename T> void Message::serialize(const std::string& value) {
   std::memcpy(_data.data() + oldSize, value.data(), size);
 }
 
-template <typename T> void Message::deserialize(const T& value) {
+template <typename T> void Message::deserialize(T& value) {
   static_assert(std::is_trivially_copyable_v<T>, "Value not copy able");
 
-  if (_readPos + +sizeof(T) > _data.size())
+  if (_readPos + sizeof(T) > _data.size())
     throw std::runtime_error("Read overflow");
 
-  std::memcpy(&value, _data.data(), sizeof(T));
+  std::memcpy(&value, _data.data() + _readPos, sizeof(T));
   _readPos += sizeof(T);
 }
 
-template <typename T> void Message::deserialize(const std::string& value) {
-
+void Message::deserialize(std::string& value) {
   std::uint32_t size;
   deserialize(size);
 
-  if (_readPos + +sizeof(T) > _data.size())
+  if (_readPos + size > _data.size())
     throw std::runtime_error("Read overflow");
 
   value.assign(reinterpret_cast<const char*>(_data.data() + _readPos), size);
