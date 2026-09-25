@@ -61,3 +61,5 @@ float PerlinNoise2D::operator()(float x, float y) const {
 
   return lerp(nx0, nx1, v);
 }
+
+float PerlinNoise2D::sample(float x, float y) const { return (*this)(x, y); }

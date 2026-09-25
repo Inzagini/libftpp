@@ -14,4 +14,5 @@ private:
 public:
   PerlinNoise2D() = default;
   float operator()(float x, float y) const;
+  float sample(float x, float y) const;
 };
