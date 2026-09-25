@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DataStructure/RingBuffer/ring_buffer.hpp"
 #include <cassert>
 #include <new>
 #include <stdexcept>
@@ -21,7 +22,8 @@ template <typename T> RingBuffer<T>::~RingBuffer() {
 }
 
 template <typename T>
-RingBuffer<T>::RingBuffer(const RingBuffer& other) : _capacity(other._capacity) {
+RingBuffer<T>::RingBuffer(const RingBuffer& other)
+    : _capacity(other._capacity) {
   if (_capacity == 0)
     return;
 
@@ -206,8 +208,8 @@ template <typename T> void RingBuffer<T>::deallocate(T* buffer) {
   ::operator delete(buffer, std::align_val_t(alignof(T)));
 }
 
-template <typename T> std::size_t RingBuffer<T>::physical(
-    std::size_t logical) const {
+template <typename T>
+std::size_t RingBuffer<T>::physical(std::size_t logical) const {
   return (_head + logical) % _capacity;
 }
 
