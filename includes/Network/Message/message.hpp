@@ -36,3 +36,5 @@ private:
   std::vector<uint8_t> _data;
   size_t _readPos;
 };
+
+#include "message.tpp"

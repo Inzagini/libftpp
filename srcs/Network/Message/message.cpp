@@ -10,25 +10,6 @@ std::vector<uint8_t>& Message::data() { return _data; }
 
 void Message::resetRead() { _readPos = 0; }
 
-template <typename T> Message& Message::operator<<(const T& value) {
-  serialize(value);
-  return *this;
-}
-
-template <typename T> Message& Message::operator>>(T& value) {
-  deserialize(value);
-  return *this;
-}
-
-template <typename T> void Message::serialize(const T& value) {
-  static_assert(std::is_trivially_copyable_v<T>, "Value not copy able");
-  const size_t oldSize = _data.size();
-
-  _data.resize(oldSize + sizeof(T));
-
-  std::memcpy(_data.data() + oldSize, &value, sizeof(T));
-}
-
 void Message::serialize(const std::string& value) {
   std::uint32_t size = static_cast<uint32_t>(value.size());
 
@@ -38,16 +19,6 @@ void Message::serialize(const std::string& value) {
   _data.resize(oldSize + size);
 
   std::memcpy(_data.data() + oldSize, value.data(), size);
-}
-
-template <typename T> void Message::deserialize(T& value) {
-  static_assert(std::is_trivially_copyable_v<T>, "Value not copy able");
-
-  if (_readPos + sizeof(T) > _data.size())
-    throw std::runtime_error("Read overflow");
-
-  std::memcpy(&value, _data.data() + _readPos, sizeof(T));
-  _readPos += sizeof(T);
 }
 
 void Message::deserialize(std::string& value) {
