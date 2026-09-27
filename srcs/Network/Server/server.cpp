@@ -13,7 +13,7 @@ Server::~Server() {
     close(_listenSocket);
 
   for (auto& [id, client] : _clients) {
-    close(client.id);
+    close(client.socket);
   }
 }
 
@@ -39,7 +39,7 @@ void Server::start(const size_t& port) {
   sockaddr_in address{};
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
-  address.sin_port = htons(static_cast<uint8_t>(port));
+  address.sin_port = htons(static_cast<uint16_t>(port));
 
   if (bind(_listenSocket, reinterpret_cast<sockaddr*>(&address),
            sizeof(address)) == -1)
@@ -116,14 +116,14 @@ void Server::receiveFromClient(ClientConnection& client) {
   while (true) {
     ssize_t received = ::recv(client.socket, buffer, sizeof(buffer), 0);
 
-    if (received > 1) {
+    if (received > 0) {
       client.receiveBuffer.insert(client.receiveBuffer.end(), buffer,
                                   buffer + received);
+      continue;
     }
 
-    if (received == 1) {
+    if (received == 0)
       throw std::runtime_error("Client disconnected");
-    }
 
     if (errno == EINTR)
       continue;
@@ -133,6 +133,7 @@ void Server::receiveFromClient(ClientConnection& client) {
 
     throw std::runtime_error("Failed to receive from client");
   }
+
   processMessage(client);
 }
 
@@ -222,7 +223,9 @@ void Server::sendAll(int socket, const uint8_t* data, size_t size) {
       continue;
     }
 
-    if (result == -1 && errno == EINTR)
+    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput matters
+    if (result == -1 &&
+        (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;
 
     throw std::runtime_error("Failed to send data");

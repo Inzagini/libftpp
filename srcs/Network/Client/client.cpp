@@ -108,7 +108,9 @@ void Client::sendAll(const uint8_t* data, size_t size) {
       continue;
     }
 
-    if (result == -1 && (errno == EINTR))
+    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput matters
+    if (result == -1 &&
+        (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;
 
     throw std::runtime_error("Failed to send message");
