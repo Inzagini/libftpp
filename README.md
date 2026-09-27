@@ -79,7 +79,8 @@ libftpp/
 │   │   ├── Client/
 │   │   │   └── client.hpp
 │   │   ├── Message/
-│   │   │   └── message.hpp
+│   │   │   ├── message.hpp
+│   │   │   └── message.tpp
 │   │   └── Server/
 │   │       └── server.hpp
 │   ├── Tester/
@@ -139,6 +140,8 @@ libftpp/
     │   ├── ivector3_test.cpp
     │   ├── perlin_noise_2D_test.cpp
     │   └── random_2D_coordinate_generator_test.cpp
+    ├── Network/
+    │   └── network_test.cpp
     └── Thread/
         ├── persistent_worker_test.cpp
         ├── thread_safe_queue_test.cpp

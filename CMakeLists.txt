@@ -163,3 +163,12 @@ add_libftpp_test(
     PerlinNoise2DTest
     tests/Mathematics/perlin_noise_2D_test.cpp
 )
+
+# =========================
+# Network Tests
+# =========================
+
+add_libftpp_test(
+    NetworkTest
+    tests/Network/network_test.cpp
+)
