@@ -26,6 +26,8 @@ public:
   static void OnTestProgramEnd(int total_tests, int passed_tests,
                                int failed_tests);
 
+  static std::string formatTime(const std::chrono::nanoseconds time);
+
   static void TestTime(const std::chrono::nanoseconds time);
 };
 

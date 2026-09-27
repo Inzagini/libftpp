@@ -1,6 +1,7 @@
 #include "Tester/printer.hpp"
 
 #include <iostream>
+#include <sstream>
 
 namespace Test {
 
@@ -34,9 +35,26 @@ void Printer::OnTestProgramEnd(int total_tests, int passed_tests,
 }
 
 void Printer::TestTime(const std::chrono::nanoseconds time) {
-  std::cout << "Time: " << BOLD << YELLOW << time.count() << " ns" << RESET
-            << "\n";
+  std::cout << "Time: " << BOLD << YELLOW << formatTime(time) << RESET << "\n";
   std::cout << "=========================================\n";
+}
+
+std::string Printer::formatTime(const std::chrono::nanoseconds time) {
+  static constexpr const char* units[] = {"ns", "us", "ms", "s"};
+  constexpr std::size_t unitCount = sizeof(units) / sizeof(units[0]);
+
+  double value = static_cast<double>(time.count());
+  std::size_t unit = 0;
+
+  while (value >= 10000.0 && unit + 1 < unitCount) {
+    value /= 1000.0;
+    ++unit;
+  }
+
+  std::ostringstream stream;
+  stream << value << " " << units[unit];
+
+  return stream.str();
 }
 
 } // namespace Test

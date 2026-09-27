@@ -172,3 +172,12 @@ add_libftpp_test(
     NetworkTest
     tests/Network/network_test.cpp
 )
+
+# =========================
+# Tester Tests
+# =========================
+
+add_libftpp_test(
+    PrinterTest
+    tests/Tester/printer_test.cpp
+)
