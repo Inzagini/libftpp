@@ -11,9 +11,9 @@ class DataBuffer {
 private:
   std::vector<char> _buffer;
 
-  std::size_t _readpos = 0;
-  std::size_t _writePos = 0;
-  std::size_t _size = 0;
+  std::size_t _readpos{};
+  std::size_t _writePos{};
+  std::size_t _size{};
 
 public:
   explicit DataBuffer(size_t capacity = 1024) { _buffer.resize(capacity); };

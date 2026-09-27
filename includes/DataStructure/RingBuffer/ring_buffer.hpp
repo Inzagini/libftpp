@@ -44,10 +44,10 @@ private:
 
   T* _buffer = nullptr;
 
-  std::size_t _head = 0;
-  std::size_t _tail = 0;
-  std::size_t _size = 0;
-  std::size_t _capacity = 0;
+  std::size_t _head{};
+  std::size_t _tail{};
+  std::size_t _size{};
+  std::size_t _capacity{};
 };
 
 #include "ring_buffer.tpp"
