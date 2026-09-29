@@ -1,10 +1,4 @@
 #include "Network/Server/server.hpp"
-#include "Network/Message/message.hpp"
-#include <cerrno>
-#include <cstdint>
-#include <netinet/in.h>
-#include <stdexcept>
-#include <sys/socket.h>
 
 Server::Server() : _listenSocket(-1), _nextClientID(1) {}
 
@@ -223,7 +217,8 @@ void Server::sendAll(int socket, const uint8_t* data, size_t size) {
       continue;
     }
 
-    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput matters
+    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput
+    // matters
     if (result == -1 &&
         (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;

@@ -1,5 +1,4 @@
-#include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
-#include "Thread/threading.hpp"
+#include "Thread/Thread/thread.hpp"
 
 Thread::Thread(const std::string& name, std::function<void()> function)
     : _name(name), _function(function), _started(false) {}

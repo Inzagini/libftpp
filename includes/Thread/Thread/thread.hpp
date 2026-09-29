@@ -1,7 +1,9 @@
 #pragma once
 
+#include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 #include <functional>
 #include <thread>
+
 class Thread {
 
 public:

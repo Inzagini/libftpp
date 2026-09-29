@@ -1,8 +1,5 @@
 #include "Tester/printer.hpp"
 
-#include <iostream>
-#include <sstream>
-
 namespace Test {
 
 void Printer::OnTestStart(const std::string& suite_name,

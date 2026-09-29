@@ -1,6 +1,4 @@
 #include "Thread/WorkerPool/worker_pool.hpp"
-#include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
-#include <stdexcept>
 
 WorkerPool::WorkerPool(std::size_t count) {
 

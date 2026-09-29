@@ -1,7 +1,4 @@
 #include "IOStream/Log/log.hpp"
-#include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
-
-#include <string_view>
 
 std::atomic<Log::Level> Log::_level{Log::Level::Info};
 

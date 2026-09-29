@@ -1,10 +1,4 @@
 #include "Thread/PersistentWorker/persistent_worker.hpp"
-#include <chrono>
-#include <functional>
-#include <mutex>
-#include <string>
-#include <thread>
-#include <unordered_map>
 
 PersistentWorker::PersistentWorker()
     : _thread("PersistenWorker", [this]() { workerLoop(); }), _running(true) {

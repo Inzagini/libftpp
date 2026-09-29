@@ -1,5 +1,4 @@
 #include "Mathematics/Random2DCoordinateGenerator/random_2D_coordinate_generator.hpp"
-#include <cstdint>
 
 Random2DCoordinateGenerator::Random2DCoordinateGenerator(const long long seed)
     : _seed(seed) {}

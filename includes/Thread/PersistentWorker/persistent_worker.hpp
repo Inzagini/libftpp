@@ -3,9 +3,11 @@
 #include "Thread/Thread/thread.hpp"
 #include "Thread/threading.hpp"
 #include <atomic>
+#include <chrono>
 #include <functional>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <unordered_map>
 
 class PersistentWorker {

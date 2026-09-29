@@ -1,8 +1,10 @@
 #pragma once
 
+#include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 #include <atomic>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <utility>
 
 class Log {

@@ -1,6 +1,4 @@
 #include "Network/Client/client.hpp"
-#include <netinet/in.h>
-#include <stdexcept>
 
 Client::Client() : _socket(-1) {};
 
@@ -108,7 +106,8 @@ void Client::sendAll(const uint8_t* data, size_t size) {
       continue;
     }
 
-    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput matters
+    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput
+    // matters
     if (result == -1 &&
         (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;

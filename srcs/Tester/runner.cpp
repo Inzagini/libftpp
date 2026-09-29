@@ -1,7 +1,5 @@
 #include "Tester/runner.hpp"
 
-#include <iostream>
-
 namespace Test {
 
 void Runner::add(const std::string& suite, const std::string& name,
