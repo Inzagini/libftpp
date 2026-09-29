@@ -6,8 +6,10 @@ WorkerPool::WorkerPool(std::size_t count) {
   _workders.reserve(count);
 
   for (std::size_t i{}; i < count; i++) {
-    _workders.emplace_back(std::format("Worker-{} ", i),
-                           [this]() { workerLoop(); });
+    std::ostringstream oss;
+    oss << "Worker-" << i << ' ';
+    std::string s = oss.str();
+    _workders.emplace_back(s, [this]() { workerLoop(); });
 
     _workders.back().start();
   }
