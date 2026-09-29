@@ -2,8 +2,7 @@
 #include "Tester/runner.hpp"
 #include <stdexcept>
 
-int main() {
-  Test::Runner runner;
+void register_Random2DCoordinateGenerator(Test::Runner& runner) {
 
   runner.add("Random2DCoordinateGenerator", "Seed", []() {
     Random2DCoordinateGenerator generator(42);
@@ -149,5 +148,13 @@ int main() {
       throw std::runtime_error("Result depends on previous calls");
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Random2DCoordinateGenerator(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

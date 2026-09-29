@@ -23,8 +23,7 @@ private:
   std::streambuf* old;
 };
 
-int main() {
-  Test::Runner runner;
+void register_ThreadSafeIOStream(Test::Runner& runner) {
 
   /*
       BASIC OUTPUT
@@ -255,5 +254,13 @@ int main() {
     assert(output.starts_with("[A] "));
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_ThreadSafeIOStream(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

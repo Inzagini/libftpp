@@ -32,8 +32,7 @@ bool waitFor(Server& server, std::vector<Client*>& clients,
 
 } // namespace
 
-int main() {
-  Test::Runner runner;
+void register_Network(Test::Runner& runner) {
 
   runner.add("Network", "MessageRoundTrip", []() {
     Message original(7);
@@ -186,5 +185,13 @@ int main() {
     second.disconnect();
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Network(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

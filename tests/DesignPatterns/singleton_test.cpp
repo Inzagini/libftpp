@@ -36,8 +36,7 @@ public:
   int getCount() const { return count; }
 };
 
-int main() {
-  Test::Runner runner;
+void register_Singleton(Test::Runner& runner) {
 
   // BASIC INSTANTIATION
   runner.add("Singleton", "CreateInstance", []() {
@@ -133,5 +132,13 @@ int main() {
     counterManager.destroy();
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Singleton(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

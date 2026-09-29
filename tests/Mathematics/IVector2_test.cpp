@@ -5,8 +5,7 @@
 #include <cmath>
 #include <stdexcept>
 
-int main() {
-  Test::Runner runner;
+void register_IVector2(Test::Runner& runner) {
 
   runner.add("IVector2", "Addition", []() {
     IVector2<int> a{1, 2};
@@ -97,5 +96,13 @@ int main() {
       throw std::runtime_error("Inequality failed");
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_IVector2(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

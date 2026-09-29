@@ -6,8 +6,7 @@
 #include <chrono>
 #include <thread>
 
-int main() {
-  Test::Runner runner;
+void register_PersistentWorker(Test::Runner& runner) {
 
   /*
       SINGLE TASK EXECUTION
@@ -128,5 +127,13 @@ int main() {
     assert(true);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_PersistentWorker(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

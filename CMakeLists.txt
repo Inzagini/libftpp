@@ -181,3 +181,43 @@ add_libftpp_test(
     PrinterTest
     tests/Tester/printer_test.cpp
 )
+
+# =========================
+# Combined test runner
+# =========================
+
+set(LIBFTPP_TEST_SOURCES
+    tests/DataStructure/data_buffer_test.cpp
+    tests/DataStructure/pool_test.cpp
+    tests/DataStructure/ring_buffer_test.cpp
+    tests/DesignPatterns/memento_test.cpp
+    tests/DesignPatterns/observer_test.cpp
+    tests/DesignPatterns/singleton_test.cpp
+    tests/DesignPatterns/state_machine_test.cpp
+    tests/IOStream/thread_safe_iostream_test.cpp
+    tests/IOStream/log_test.cpp
+    tests/Thread/thread_test.cpp
+    tests/Thread/worker_pool_test.cpp
+    tests/Thread/persistent_worker_test.cpp
+    tests/Thread/thread_safe_queue_test.cpp
+    tests/Mathematics/IVector2_test.cpp
+    tests/Mathematics/ivector3_test.cpp
+    tests/Mathematics/random_2D_coordinate_generator_test.cpp
+    tests/Mathematics/perlin_noise_2D_test.cpp
+    tests/Network/network_test.cpp
+    tests/Tester/printer_test.cpp
+)
+
+add_executable(AllTests
+    tests/all_tests_main.cpp
+    ${LIBFTPP_TEST_SOURCES}
+)
+
+target_compile_definitions(AllTests PRIVATE LIBFTPP_TEST_NO_MAIN)
+
+target_link_libraries(AllTests PRIVATE libftpp)
+
+set_target_properties(AllTests
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests
+)

@@ -11,8 +11,7 @@ bool operator<(State a, State b) {
   return static_cast<int>(a) < static_cast<int>(b);
 }
 
-int main() {
-  Test::Runner runner;
+void register_StateMachine(Test::Runner& runner) {
 
   // BASIC ACTION
   runner.add("StateMachine", "ExecuteCurrentStateAction", []() {
@@ -181,5 +180,13 @@ int main() {
 
     assert(count == 1);
   });
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_StateMachine(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

@@ -25,8 +25,9 @@ public:
   void add(const std::string& suite, const std::string& name,
            std::function<void()> function, const bool shouldFail = false);
 
-  int run();
-  int runTest();
+  int run(const std::string& filter = "");
+  int runTest(const std::string& filter = "");
+  std::vector<std::string> suiteNames() const;
 };
 
 } // namespace Test

@@ -4,8 +4,7 @@
 #include <cmath>
 #include <stdexcept>
 
-int main() {
-  Test::Runner runner;
+void register_PerlinNoise2D(Test::Runner& runner) {
 
   // 1. Same coordinates must always produce the same value.
   runner.add("PerlinNoise2D", "Deterministic", []() {
@@ -107,5 +106,13 @@ int main() {
     }
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_PerlinNoise2D(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

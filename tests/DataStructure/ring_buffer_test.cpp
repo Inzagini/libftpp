@@ -6,8 +6,7 @@
 #include <string>
 #include <utility>
 
-int main() {
-  Test::Runner runner;
+void register_RingBuffer(Test::Runner& runner) {
 
   runner.add("RingBuffer", "PushPopFifo", []() {
     RingBuffer<int> buffer(4);
@@ -191,5 +190,13 @@ int main() {
     assert(thrown);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_RingBuffer(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

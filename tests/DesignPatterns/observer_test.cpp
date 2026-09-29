@@ -6,8 +6,7 @@
 
 enum class Event { START, STOP, UPDATE };
 
-int main() {
-  Test::Runner runner;
+void register_Observer(Test::Runner& runner) {
 
   // BASIC SUBSCRIBE / NOTIFY
   runner.add("Observer", "BasicNotify", []() {
@@ -125,5 +124,13 @@ int main() {
     assert(thrown);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Observer(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

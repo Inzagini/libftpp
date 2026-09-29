@@ -4,7 +4,7 @@
 #include <cassert>
 #include <string>
 
-class Player {
+class PoolPlayer {
 public:
   static int alive;
 
@@ -13,23 +13,22 @@ private:
   std::string name;
 
 public:
-  Player(int h, std::string n) : hp(h), name(std::move(n)) { alive++; }
+  PoolPlayer(int h, std::string n) : hp(h), name(std::move(n)) { alive++; }
 
-  ~Player() { alive--; }
+  ~PoolPlayer() { alive--; }
 
   int getHP() const { return hp; }
 
   const std::string& getName() const { return name; }
 };
 
-int Player::alive = 0;
+int PoolPlayer::alive = 0;
 
-int main() {
-  Test::Runner runner;
+void register_Pool(Test::Runner& runner) {
 
   // BASIC ACQUIRE
   runner.add("Pool", "AcquireObject", []() {
-    Pool<Player> pool(2);
+    Pool<PoolPlayer> pool(2);
 
     auto player = pool.acquire(100, "Knight");
 
@@ -39,7 +38,7 @@ int main() {
 
   // CONSTRUCTOR ARGUMENTS
   runner.add("Pool", "ForwardConstructorArguments", []() {
-    Pool<Player> pool(1);
+    Pool<PoolPlayer> pool(1);
 
     auto player = pool.acquire(50, "Mage");
 
@@ -49,7 +48,7 @@ int main() {
 
   // FULL POOL
   runner.add("Pool", "AcquireWhenFullThrows", []() {
-    Pool<Player> pool(1);
+    Pool<PoolPlayer> pool(1);
 
     auto first = pool.acquire(10, "A");
 
@@ -66,7 +65,7 @@ int main() {
 
   // AUTOMATIC RELEASE
   runner.add("Pool", "ObjectAutomaticallyReleased", []() {
-    Pool<Player> pool(1);
+    Pool<PoolPlayer> pool(1);
 
     {
       auto player = pool.acquire(100, "Temp");
@@ -79,24 +78,24 @@ int main() {
 
   // DESTRUCTOR CALLED
   runner.add("Pool", "DestructorCalled", []() {
-    assert(Player::alive == 0);
+    assert(PoolPlayer::alive == 0);
 
     {
-      Pool<Player> pool(2);
+      Pool<PoolPlayer> pool(2);
 
       auto a = pool.acquire(10, "A");
 
       auto b = pool.acquire(20, "B");
 
-      assert(Player::alive == 2);
+      assert(PoolPlayer::alive == 2);
     }
 
-    assert(Player::alive == 0);
+    assert(PoolPlayer::alive == 0);
   });
 
   // MOVE CONSTRUCTOR
   runner.add("Pool", "MoveObject", []() {
-    Pool<Player> pool(1);
+    Pool<PoolPlayer> pool(1);
 
     auto first = pool.acquire(100, "Original");
 
@@ -107,7 +106,7 @@ int main() {
 
   // MOVE ASSIGNMENT
   runner.add("Pool", "MoveAssignment", []() {
-    Pool<Player> pool(2);
+    Pool<PoolPlayer> pool(2);
 
     auto first = pool.acquire(100, "First");
 
@@ -120,7 +119,7 @@ int main() {
 
   // RESIZE EMPTY POOL
   runner.add("Pool", "ResizeEmptyPool", []() {
-    Pool<Player> pool(2);
+    Pool<PoolPlayer> pool(2);
 
     pool.resize(5);
 
@@ -131,7 +130,7 @@ int main() {
 
   // RESIZE WITH ACTIVE OBJECTS
   runner.add("Pool", "ResizeWithObjectsThrows", []() {
-    Pool<Player> pool(2);
+    Pool<PoolPlayer> pool(2);
 
     auto object = pool.acquire(100, "Active");
 
@@ -148,7 +147,7 @@ int main() {
 
   // REUSE AFTER RELEASE
   runner.add("Pool", "ReuseReleasedMemory", []() {
-    Pool<Player> pool(1);
+    Pool<PoolPlayer> pool(1);
 
     {
       auto object = pool.acquire(10, "Old");
@@ -159,5 +158,13 @@ int main() {
     assert(object->getHP() == 999);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Pool(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

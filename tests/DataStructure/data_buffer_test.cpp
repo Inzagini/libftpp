@@ -9,8 +9,7 @@ struct TestStruct {
   double value;
 };
 
-int main() {
-  Test::Runner runner;
+void register_DataBuffer(Test::Runner& runner) {
 
   // BASIC INT WRITE / READ
   runner.add("DataBuffer", "WriteReadInt", []() {
@@ -206,5 +205,13 @@ int main() {
     assert(output.empty());
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_DataBuffer(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

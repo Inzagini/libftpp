@@ -23,8 +23,7 @@ private:
   std::streambuf* old;
 };
 
-int main() {
-  Test::Runner runner;
+void register_Log(Test::Runner& runner) {
 
   runner.add("Log", "LevelAccessor", []() {
     Log::setLevel(Log::Level::Debug);
@@ -38,6 +37,7 @@ int main() {
     CoutCapture capture;
     capture.start();
 
+    threadSafeCout.setPrefix("");
     Log::setLevel(Log::Level::Debug);
     Log::info("hello ", 42);
 
@@ -48,6 +48,7 @@ int main() {
     CoutCapture capture;
     capture.start();
 
+    threadSafeCout.setPrefix("");
     Log::setLevel(Log::Level::Debug);
     Log::debug("a");
     Log::info("b");
@@ -62,6 +63,7 @@ int main() {
     CoutCapture capture;
     capture.start();
 
+    threadSafeCout.setPrefix("");
     Log::setLevel(Log::Level::Warning);
     Log::debug("d");
     Log::info("i");
@@ -71,5 +73,13 @@ int main() {
     assert(capture.stop() == "[WARNING] w\n[ERROR] e\n");
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Log(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

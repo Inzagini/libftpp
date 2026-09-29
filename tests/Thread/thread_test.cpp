@@ -6,8 +6,7 @@
 #include <chrono>
 #include <thread>
 
-int main() {
-  Test::Runner runner;
+void register_Thread(Test::Runner& runner) {
 
   // THREAD DOES NOT START AUTOMATICALLY
 
@@ -119,5 +118,13 @@ int main() {
     assert(thrown);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Thread(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

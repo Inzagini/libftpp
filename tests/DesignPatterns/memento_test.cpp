@@ -4,7 +4,7 @@
 #include <cassert>
 #include <string>
 
-class Player : public Memento {
+class MementoPlayer : public Memento {
 
 private:
   int hp = 100;
@@ -21,7 +21,7 @@ private:
   }
 
 public:
-  Player(int h = 100, int p = 0) : hp(h), position(p) {}
+  MementoPlayer(int h = 100, int p = 0) : hp(h), position(p) {}
 
   void damage(int amount) { hp -= amount; }
 
@@ -32,15 +32,14 @@ public:
   int getPosition() const { return position; }
 };
 
-int main() {
-  Test::Runner runner;
+void register_Memento(Test::Runner& runner) {
 
   /*
       BASIC SAVE / LOAD
   */
 
   runner.add("Memento", "SaveAndRestore", []() {
-    Player player(100, 10);
+    MementoPlayer player(100, 10);
 
     auto snapshot = player.save();
 
@@ -61,7 +60,7 @@ int main() {
   */
 
   runner.add("Memento", "SnapshotIndependence", []() {
-    Player player(100, 10);
+    MementoPlayer player(100, 10);
 
     auto snapshot = player.save();
 
@@ -79,7 +78,7 @@ int main() {
   */
 
   runner.add("Memento", "MultipleSnapshots", []() {
-    Player player(100, 0);
+    MementoPlayer player(100, 0);
 
     auto first = player.save();
 
@@ -105,7 +104,7 @@ int main() {
   */
 
   runner.add("Memento", "EmptySnapshotThrows", []() {
-    Player player;
+    MementoPlayer player;
 
     Memento::Snapshot empty;
 
@@ -125,7 +124,7 @@ int main() {
   */
 
   runner.add("Memento", "WrongTypeThrows", []() {
-    Player player;
+    MementoPlayer player;
 
     Memento::Snapshot snapshot;
 
@@ -149,7 +148,7 @@ int main() {
   */
 
   runner.add("Memento", "MissingKeyThrows", []() {
-    Player player;
+    MementoPlayer player;
 
     Memento::Snapshot snapshot;
 
@@ -166,5 +165,13 @@ int main() {
     assert(thrown);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_Memento(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

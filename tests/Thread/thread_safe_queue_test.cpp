@@ -6,8 +6,7 @@
 #include <thread>
 #include <vector>
 
-int main() {
-  Test::Runner runner;
+void register_ThreadSafeQueue(Test::Runner& runner) {
 
   /*
       PUSH BACK / POP FRONT FIFO
@@ -210,5 +209,13 @@ int main() {
     assert(result.value == 3.14);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_ThreadSafeQueue(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+

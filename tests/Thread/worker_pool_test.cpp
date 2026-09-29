@@ -6,8 +6,7 @@
 #include <chrono>
 #include <thread>
 
-int main() {
-  Test::Runner runner;
+void register_WorkerPool(Test::Runner& runner) {
 
   /*
       BASIC JOB EXECUTION
@@ -165,5 +164,13 @@ int main() {
     assert(counter == 1);
   });
 
-  return runner.run();
 }
+
+#ifndef LIBFTPP_TEST_NO_MAIN
+int main(int argc, char** argv) {
+  Test::Runner runner;
+  register_WorkerPool(runner);
+  return runner.run(argc > 1 ? argv[1] : "");
+}
+#endif
+
