@@ -9,17 +9,8 @@ private:
   std::unordered_map<T, std::vector<std::function<void()>>> events;
 
 public:
-  void subscribe(const T& event, const std::function<void()>& f) {
-    events[event].push_back(f);
-  }
-
-  void notify(const T& event) {
-    auto it = events.find(event);
-    if (it == events.end())
-      return;
-
-    for (auto& callback : it->second) {
-      callback();
-    }
-  }
+  void subscribe(const T& event, const std::function<void()>& f);
+  void notify(const T& event);
 };
+
+#include "observer.tpp"
