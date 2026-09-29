@@ -37,7 +37,7 @@ void Printer::TestTime(const std::chrono::nanoseconds time) {
 }
 
 std::string Printer::formatTime(const std::chrono::nanoseconds time) {
-  static constexpr const char* units[] = {"ns", "us", "ms", "s"};
+  static constexpr const char* units[] = {"ns", "µs", "ms", "s"};
   constexpr std::size_t unitCount = sizeof(units) / sizeof(units[0]);
 
   double value = static_cast<double>(time.count());

@@ -9,9 +9,9 @@ void register_Printer(Test::Runner& runner) {
     using namespace std::chrono;
 
     assert(Test::Printer::formatTime(nanoseconds(9999)) == "9999 ns");
-    assert(Test::Printer::formatTime(nanoseconds(10000)) == "10 us");
+    assert(Test::Printer::formatTime(nanoseconds(10000)) == "10 µs");
 
-    assert(Test::Printer::formatTime(microseconds(9999)) == "9999 us");
+    assert(Test::Printer::formatTime(microseconds(9999)) == "9999 µs");
     assert(Test::Printer::formatTime(microseconds(10000)) == "10 ms");
 
     assert(Test::Printer::formatTime(milliseconds(9999)) == "9999 ms");
