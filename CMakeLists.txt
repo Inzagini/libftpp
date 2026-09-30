@@ -28,6 +28,7 @@ add_library(libftpp
  srcs/Network/Server/server.cpp
  srcs/Tester/printer.cpp
  srcs/Tester/runner.cpp
+ srcs/DataStructure/SharedMemoryIPC/shared_memory_ipc.cpp
 )
 # Helper function for all tests
 
@@ -75,6 +76,11 @@ add_libftpp_test(
 add_libftpp_test(
     RingBufferTest
     tests/DataStructure/ring_buffer_test.cpp
+)
+
+add_libftpp_test(
+    SharedMemoryIPC
+    srcs/DataStructure/SharedMemoryIPC/shared_memory_ipc.cpp
 )
 # =========================
 # DesignPatterns Tests
