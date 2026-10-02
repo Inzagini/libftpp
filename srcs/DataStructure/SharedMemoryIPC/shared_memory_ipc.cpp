@@ -2,6 +2,7 @@
 #include <cstring>
 #include <fcntl.h>
 #include <iostream>
+#include <semaphore.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -17,6 +18,7 @@ int main(int argc, char** argv) {
     if (std::string(argv[1]) == "WRITE") {
 
       shm_unlink("/test");
+      sem_unlink("/ready");
 
       int fd = shm_open("/test", O_CREAT | O_EXCL | O_RDWR, 0600);
       if (fd == -1) {
@@ -35,9 +37,17 @@ int main(int argc, char** argv) {
         return 1;
       }
 
+      sem_t* sem = sem_open("/ready", O_CREAT | O_EXCL, 0600, 0);
+      if (sem == SEM_FAILED) {
+        std::perror("semaphore failed");
+        return 1;
+      }
+
+      sleep(3);
       const char* str = "Child Write";
       memcpy(ptr, str, strlen(str) + 1);
       std::printf("Wrote: %s\n", (const char*)ptr);
+      sem_post(sem);
 
     } else if (std::string(argv[1]) == "READ") {
 
@@ -53,11 +63,16 @@ int main(int argc, char** argv) {
         return 1;
       }
 
+      sem_t* sem = sem_open("/ready", 0);
+
+      sem_wait(sem);
       std::printf("Read: %s\n", (const char*)ptr);
 
       munmap(ptr, SIZE);
       close(fd);
       shm_unlink("/test");
+      sem_close(sem);
+      sem_unlink("/ready");
     }
   }
   return 0;
