@@ -9,6 +9,7 @@
 #include <functional>
 #include <stdexcept>
 #include <thread>
+#include <vector>
 
 class WorkerPool {
 

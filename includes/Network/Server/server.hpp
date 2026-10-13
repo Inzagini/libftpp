@@ -4,6 +4,7 @@
 #include "Network/Message/message.hpp"
 #include <arpa/inet.h>
 #include <cerrno>
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <fcntl.h>

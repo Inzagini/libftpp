@@ -1,6 +1,7 @@
 #ifndef LIBFTPP_INCLUDES_DATASTRUCTURE_DATABUFFER_DATA_BUFFER_HPP
 # define LIBFTPP_INCLUDES_DATASTRUCTURE_DATABUFFER_DATA_BUFFER_HPP
 
+#include <cstddef>
 #include <cstring>
 #include <stdexcept>
 #include <string>

@@ -2,6 +2,7 @@
 # define LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_HPP
 
 #include <condition_variable>
+#include <cstddef>
 #include <deque>
 #include <mutex>
 #include <stdexcept>

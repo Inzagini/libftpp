@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <arpa/inet.h>
 #include <cerrno>
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <fcntl.h>
@@ -12,6 +13,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <stdexcept>
+#include <string>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <unordered_map>
