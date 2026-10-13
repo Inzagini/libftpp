@@ -21,7 +21,8 @@ SRCS := \
 	srcs/Tester/runner.cpp \
 	srcs/Thread/PersistentWorker/persistent_worker.cpp \
 	srcs/Thread/Thread/thread.cpp \
-	srcs/Thread/WorkerPool/worker_pool.cpp
+	srcs/Thread/WorkerPool/worker_pool.cpp \
+	srcs/Timer/timer.cpp
 
 OBJDIR := obj
 OBJS := $(SRCS:%.cpp=$(OBJDIR)/%.o)
@@ -42,7 +43,9 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: fclean all
+re:
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory all
 
 -include $(DEPS)
 

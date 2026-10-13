@@ -2,7 +2,7 @@
 # define LIBFTPP_INCLUDES_TESTER_RUNNER_HPP
 
 #include "Tester/printer.hpp"
-#include "Timer/timer.hpp"
+#include "Chronometer/chronometer.hpp"
 
 #include <functional>
 #include <iostream>

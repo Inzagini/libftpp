@@ -28,6 +28,7 @@ add_library(libftpp
  srcs/Network/Server/server.cpp
  srcs/Tester/printer.cpp
  srcs/Tester/runner.cpp
+ srcs/Timer/timer.cpp
 )
 # Helper function for all tests
 
@@ -183,6 +184,24 @@ add_libftpp_test(
 )
 
 # =========================
+# Timer Tests
+# =========================
+
+add_libftpp_test(
+    TimerTest
+    tests/Timer/timer_test.cpp
+)
+
+# =========================
+# Chronometer Tests
+# =========================
+
+add_libftpp_test(
+    ChronometerTest
+    tests/Chronometer/chronometer_test.cpp
+)
+
+# =========================
 # Combined test runner
 # =========================
 
@@ -206,6 +225,8 @@ set(LIBFTPP_TEST_SOURCES
     tests/Mathematics/perlin_noise_2D_test.cpp
     tests/Network/network_test.cpp
     tests/Tester/printer_test.cpp
+    tests/Timer/timer_test.cpp
+    tests/Chronometer/chronometer_test.cpp
 )
 
 add_executable(AllTests

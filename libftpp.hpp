@@ -8,5 +8,6 @@
 #include "includes/Mathematics/mathematics.hpp"
 #include "includes/Network/network.hpp"
 #include "includes/Thread/threading.hpp"
+#include "includes/Chronometer/chronometer.hpp"
 #include "includes/Timer/timer.hpp"
 #endif // LIBFTPP_LIBFTPP_HPP

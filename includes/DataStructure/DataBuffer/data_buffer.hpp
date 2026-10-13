@@ -18,7 +18,7 @@ private:
   std::size_t _size{};
 
 public:
-  explicit DataBuffer(size_t capacity = 1024) { _buffer.resize(capacity); };
+  explicit DataBuffer(size_t capacity = 1024);
 
   void clear();
   std::size_t size() const;

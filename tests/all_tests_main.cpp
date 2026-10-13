@@ -21,6 +21,8 @@ void register_Random2DCoordinateGenerator(Test::Runner&);
 void register_PerlinNoise2D(Test::Runner&);
 void register_Network(Test::Runner&);
 void register_Printer(Test::Runner&);
+void register_Timer(Test::Runner&);
+void register_Chronometer(Test::Runner&);
 
 int main(int argc, char** argv) {
   Test::Runner runner;
@@ -44,6 +46,8 @@ int main(int argc, char** argv) {
   register_PerlinNoise2D(runner);
   register_Network(runner);
   register_Printer(runner);
+  register_Timer(runner);
+  register_Chronometer(runner);
 
   if (argc > 1) {
     if (std::string(argv[1]) == "All")

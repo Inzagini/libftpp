@@ -2,12 +2,26 @@
 # define LIBFTPP_INCLUDES_TIMER_TIMER_HPP
 
 #include <chrono>
-#include <functional>
-#include <utility>
 
-struct Timer {
-  template <typename T> static auto run(T&& f);
+class Timer {
+public:
+  using Clock = std::chrono::steady_clock;
+  using Duration = Clock::duration;
+
+  Timer();
+  explicit Timer(const Duration& duration);
+
+  void setDuration(const Duration& duration);
+  void reset();
+
+  bool timedOut() const;
+  bool expired() const;
+
+  Duration elapsed() const;
+  Duration remaining() const;
+
+private:
+  Duration _duration;
+  Clock::time_point _start;
 };
-
-#include "timer.tpp"
 #endif // LIBFTPP_INCLUDES_TIMER_TIMER_HPP

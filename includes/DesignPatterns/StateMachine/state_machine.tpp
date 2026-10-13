@@ -29,7 +29,7 @@ void StateMachine<TState>::transitionTo(const TState& newState) {
   if (!states.contains(newState))
     throw std::runtime_error("State does not exist");
 
-  Transition transition{state, newState};
+  std::pair<TState, TState> transition{state, newState};
 
   auto it = transitions.find(transition);
 

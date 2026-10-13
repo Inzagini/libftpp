@@ -21,7 +21,7 @@ std::vector<std::string> Runner::suiteNames() const {
 }
 
 int Runner::run(const std::string& filter) {
-  auto [time, res] = Timer::run([this, filter] { return runTest(filter); });
+  auto [time, res] = Chronometer::run([this, filter] { return runTest(filter); });
   Printer::TestTime(time);
 
   return res;

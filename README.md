@@ -26,7 +26,7 @@ libftpp provides a compact foundation that other projects can depend on instead 
 - **Networking**: non-blocking TCP `Server` and `Client` built on a serializable `Message`.
 - **Mathematics**: `IVector2`, `IVector3`, `PerlinNoise2D` and `Random2DCoordinateGenerator`.
 - **I/O**: `ThreadSafeIOStream` with per-thread prefixes and a level-filtered, thread-safe `Log`.
-- **Utilities**: a `Timer` and a small `Tester` runner/printer.
+- **Utilities**: a timeout `Timer`, a `Chronometer`, and a small `Tester` runner/printer.
 - Header-first, template-based design with CMake integration.
 - Lightweight and easy to extend.
 
@@ -37,6 +37,7 @@ libftpp/
 ├── .clang-format
 ├── .gitignore
 ├── CMakeLists.txt
+├── Makefile
 ├── libftpp.hpp
 ├── build/
 ├── includes/
@@ -96,6 +97,9 @@ libftpp/
 │   │   │   └── thread_safe_queue.hpp
 │   │   └── WorkerPool/
 │   │       └── worker_pool.hpp
+│   ├── Chronometer/
+│   │   ├── chronometer.hpp
+│   │   └── chronometer.tpp
 │   └── Timer/
 │       └── timer.hpp
 ├── srcs/
@@ -118,10 +122,12 @@ libftpp/
 │   ├── Tester/
 │   │   ├── printer.cpp
 │   │   └── runner.cpp
-│   └── Thread/
-│       ├── PersistentWorker/persistent_worker.cpp
-│       ├── Thread/thread.cpp
-│       └── WorkerPool/worker_pool.cpp
+│   ├── Thread/
+│   │   ├── PersistentWorker/persistent_worker.cpp
+│   │   ├── Thread/thread.cpp
+│   │   └── WorkerPool/worker_pool.cpp
+│   └── Timer/
+│       └── timer.cpp
 └── tests/
     ├── DataStructure/
     │   ├── data_buffer_test.cpp
@@ -142,8 +148,12 @@ libftpp/
     │   └── random_2D_coordinate_generator_test.cpp
     ├── Network/
     │   └── network_test.cpp
+    ├── Chronometer/
+    │   └── chronometer_test.cpp
     ├── Tester/
     │   └── printer_test.cpp
+    ├── Timer/
+    │   └── timer_test.cpp
     └── Thread/
         ├── persistent_worker_test.cpp
         ├── thread_safe_queue_test.cpp
@@ -164,7 +174,14 @@ libftpp/
    cd libftpp
    ```
 
-2. Configure and build the library and its tests with CMake:
+2. Build the static library and tests. Either use the Makefile:
+
+   ```bash
+   make        # builds libftpp.a at the repository root
+   make re     # clean rebuild
+   ```
+
+   Or use CMake:
 
    ```bash
    cmake -S . -B build
@@ -197,11 +214,33 @@ libftpp/
   ```
 - Run each test binary in `build/tests/` directly: `./build/tests/IVector3Test`.
 
+## Bonus Components 🎁
+
+Beyond the mandatory toolbox, the library ships extra utilities that go through
+the same test runner, so each one is demonstrated by runnable tests:
+
+- **RingBuffer** (`includes/DataStructure/RingBuffer`) — fixed-capacity circular
+  buffer with FIFO pop and overwrite-on-full semantics.
+  Tests: `tests/DataStructure/ring_buffer_test.cpp`.
+- **Log** (`includes/IOStream/Log`) — level-filtered, thread-safe logger built on
+  top of `ThreadSafeIOStream`.
+  Tests: `tests/IOStream/log_test.cpp`.
+- **Chronometer** (`includes/Chronometer`) — measures the wall-clock duration of
+  a callable and returns its result alongside the elapsed time.
+  Tests: `tests/Chronometer/chronometer_test.cpp`.
+- **Timer** (`includes/Timer`) — countdown timer: set a duration and poll
+  `timedOut()` (alias `expired()`), with `reset()`, `elapsed()` and `remaining()`.
+  Tests: `tests/Timer/timer_test.cpp`.
+- **Tester** (`includes/Tester`) — small header-only runner/printer shared by
+  every suite.
+  Tests: `tests/Tester/printer_test.cpp`.
+
 ## File Descriptions 📜
 
 - `includes/`: Public headers, organised by module.
 - `srcs/`: Compiled source files for the non-template components.
 - `tests/`: Self-checking test cases, one executable per component.
+- `Makefile`: Builds `libftpp.a` with `-Wall -Wextra -Werror -std=c++20` and puts objects under `obj/`.
 - `CMakeLists.txt`: Builds the `libftpp` library, exposes its include directory, and registers every test.
 - `build/`: Generated build directory created by CMake. It should not be committed to the repository.
 - `.clang-format`: LLVM-based formatting rules (2-space indent, 80 columns).

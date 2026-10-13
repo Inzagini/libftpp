@@ -1,5 +1,7 @@
 #include "DataStructure/DataBuffer/data_buffer.hpp"
 
+DataBuffer::DataBuffer(size_t capacity) { _buffer.resize(capacity); }
+
 std::size_t DataBuffer::size() const { return _size; }
 
 void DataBuffer::clear() {
