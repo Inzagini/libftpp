@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_HPP
+# define LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -38,3 +39,4 @@ private:
 };
 
 #include "message.tpp"
+#endif // LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_HPP

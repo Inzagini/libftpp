@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_THREAD_WORKERPOOL_WORKER_POOL_HPP
+# define LIBFTPP_INCLUDES_THREAD_WORKERPOOL_WORKER_POOL_HPP
 
 #include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 #include "Thread/threading.hpp"
@@ -34,3 +35,4 @@ private:
   std::vector<Thread> _workders;
   std::atomic<bool> _running;
 };
+#endif // LIBFTPP_INCLUDES_THREAD_WORKERPOOL_WORKER_POOL_HPP

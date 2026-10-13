@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_LIBFTPP_HPP
+# define LIBFTPP_LIBFTPP_HPP
 
 #include "includes/DataStructure/data_structures.hpp"
 #include "includes/DesignPatterns/design_patterns.hpp"
@@ -8,3 +9,4 @@
 #include "includes/Network/network.hpp"
 #include "includes/Thread/threading.hpp"
 #include "includes/Timer/timer.hpp"
+#endif // LIBFTPP_LIBFTPP_HPP

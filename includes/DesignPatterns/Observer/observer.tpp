@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_TPP
+# define LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_TPP
 
 template <typename T>
 void Observer<T>::subscribe(const T& event, const std::function<void()>& f) {
@@ -14,3 +15,4 @@ template <typename T> void Observer<T>::notify(const T& event) {
     callback();
   }
 }
+#endif // LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_TPP

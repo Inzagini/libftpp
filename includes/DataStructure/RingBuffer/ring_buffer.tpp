@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DATASTRUCTURE_RINGBUFFER_RING_BUFFER_TPP
+# define LIBFTPP_INCLUDES_DATASTRUCTURE_RINGBUFFER_RING_BUFFER_TPP
 
 #include "DataStructure/RingBuffer/ring_buffer.hpp"
 #include <cassert>
@@ -217,3 +218,4 @@ template <typename T> void RingBuffer<T>::advanceWrite() {
   _tail = (_tail + 1) % _capacity;
   ++_size;
 }
+#endif // LIBFTPP_INCLUDES_DATASTRUCTURE_RINGBUFFER_RING_BUFFER_TPP

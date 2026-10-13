@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_MATHEMATICS_PERLINNOISE2D_PERLIN_NOISE_2D_HPP
+# define LIBFTPP_INCLUDES_MATHEMATICS_PERLINNOISE2D_PERLIN_NOISE_2D_HPP
 
 #include <cmath>
 #include <cstdint>
@@ -16,3 +17,4 @@ public:
   float operator()(float x, float y) const;
   float sample(float x, float y) const;
 };
+#endif // LIBFTPP_INCLUDES_MATHEMATICS_PERLINNOISE2D_PERLIN_NOISE_2D_HPP

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_TPP
+# define LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_TPP
 
 template <typename T> std::unique_ptr<T> Singleton<T>::_instance = nullptr;
 
@@ -18,3 +19,4 @@ void Singleton<Ttype>::instantiate(Targs&&... args) {
 template <typename Ttype> void Singleton<Ttype>::destroy() {
   _instance.reset();
 }
+#endif // LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_TPP

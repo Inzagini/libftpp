@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_HPP
+# define LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_HPP
 
 #include <memory>
 #include <stdexcept>
@@ -15,3 +16,4 @@ public:
 };
 
 #include "singleton.tpp"
+#endif // LIBFTPP_INCLUDES_DESIGNPATTERNS_SINGLETON_SINGLETON_HPP

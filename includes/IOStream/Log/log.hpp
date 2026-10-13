@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_HPP
+# define LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_HPP
 
 #include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 #include <atomic>
@@ -29,3 +30,4 @@ private:
 };
 
 #include "log.tpp"
+#endif // LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_HPP

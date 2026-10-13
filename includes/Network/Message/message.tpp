@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_TPP
+# define LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_TPP
 
 #include <cstring>
 #include <stdexcept>
@@ -33,3 +34,4 @@ template <typename T> void Message::deserialize(T& value) {
   std::memcpy(&value, _data.data() + _readPos, sizeof(T));
   _readPos += sizeof(T);
 }
+#endif // LIBFTPP_INCLUDES_NETWORK_MESSAGE_MESSAGE_TPP

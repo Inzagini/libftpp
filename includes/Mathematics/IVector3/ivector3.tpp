@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR3_IVECTOR3_TPP
+# define LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR3_IVECTOR3_TPP
 
 template <typename T>
 constexpr IVector3<T>::IVector3(const T& x, const T& y, const T& z)
@@ -81,3 +82,4 @@ IVector3<T> IVector3<T>::cross(const IVector3<T>& other) const {
   return {y * other.z - z * other.y, z * other.x - x * other.z,
           x * other.y - y * other.x};
 }
+#endif // LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR3_IVECTOR3_TPP

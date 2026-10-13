@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_HPP
+# define LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_HPP
 
 #include <iostream>
 #include <mutex>
@@ -29,3 +30,4 @@ private:
 extern thread_local ThreadSafeIOStream threadSafeCout;
 
 #include "thread_safe_iostream.tpp"
+#endif // LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_HPP

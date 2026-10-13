@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_HPP
+# define LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_HPP
 
 #include "Mathematics/IVector3/ivector3.hpp"
 #include <cmath>
@@ -29,3 +30,4 @@ template <typename T> struct IVector2 {
 };
 
 #include "ivector2.tpp"
+#endif // LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_HPP

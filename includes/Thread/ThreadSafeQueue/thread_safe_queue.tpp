@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_TPP
+# define LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_TPP
 
 template <typename TType>
 void ThreadSafeQueue<TType>::push_back(const TType& newElement) {
@@ -77,3 +78,4 @@ template <typename TType> TType ThreadSafeQueue<TType>::wait_pop_front() {
 
   return element;
 }
+#endif // LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_TPP

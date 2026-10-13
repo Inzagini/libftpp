@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_HPP
+# define LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_HPP
 
 #include <condition_variable>
 #include <deque>
@@ -33,3 +34,4 @@ private:
 };
 
 #include "thread_safe_queue.tpp"
+#endif // LIBFTPP_INCLUDES_THREAD_THREADSAFEQUEUE_THREAD_SAFE_QUEUE_HPP

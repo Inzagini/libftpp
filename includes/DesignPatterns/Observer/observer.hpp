@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_HPP
+# define LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_HPP
 
 #include <functional>
 #include <unordered_map>
@@ -14,3 +15,4 @@ public:
 };
 
 #include "observer.tpp"
+#endif // LIBFTPP_INCLUDES_DESIGNPATTERNS_OBSERVER_OBSERVER_HPP

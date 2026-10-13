@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_TPP
+# define LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_TPP
 
 template <typename... TArgs> std::string Log::concat(TArgs&&... args) {
   std::ostringstream stream;
@@ -21,3 +22,4 @@ template <typename... TArgs> void Log::warning(TArgs&&... args) {
 template <typename... TArgs> void Log::error(TArgs&&... args) {
   log(Level::Error, concat(std::forward<TArgs>(args)...));
 }
+#endif // LIBFTPP_INCLUDES_IOSTREAM_LOG_LOG_TPP

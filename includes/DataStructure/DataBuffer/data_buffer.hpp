@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DATASTRUCTURE_DATABUFFER_DATA_BUFFER_HPP
+# define LIBFTPP_INCLUDES_DATASTRUCTURE_DATABUFFER_DATA_BUFFER_HPP
 
 #include <cstring>
 #include <stdexcept>
@@ -35,3 +36,4 @@ private:
 };
 
 #include "data_buffer.tpp"
+#endif // LIBFTPP_INCLUDES_DATASTRUCTURE_DATABUFFER_DATA_BUFFER_HPP

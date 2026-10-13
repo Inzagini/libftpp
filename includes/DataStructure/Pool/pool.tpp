@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_TPP
+# define LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_TPP
 
 template <typename T> Pool<T>::Pool(const size_t size) : _size(size) {
   _memBuffer = ::operator new(_size * sizeof(T), std::align_val_t(alignof(T)));
@@ -103,3 +104,4 @@ template <typename T> T* Pool<T>::Object::operator->() {
 template <typename T> const T* Pool<T>::Object::operator->() const {
   return static_cast<const T*>(_slot->mem);
 }
+#endif // LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_TPP

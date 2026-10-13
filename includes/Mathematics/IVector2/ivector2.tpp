@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_TPP
+# define LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_TPP
 
 template <typename T> constexpr IVector2<T>::IVector2(T x, T y) : x(x), y(y) {}
 
@@ -76,3 +77,4 @@ template <typename T>
 constexpr bool IVector2<T>::operator!=(const IVector2<T>& other) const {
   return (x != other.x || y != other.y);
 }
+#endif // LIBFTPP_INCLUDES_MATHEMATICS_IVECTOR2_IVECTOR2_TPP

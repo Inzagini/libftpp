@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_NETWORK_CLIENT_CLIENT_HPP
+# define LIBFTPP_INCLUDES_NETWORK_CLIENT_CLIENT_HPP
 
 #include "Network/Message/message.hpp"
 #include <algorithm>
@@ -41,3 +42,4 @@ private:
   std::unordered_map<Message::Type, std::function<void(const Message)>>
       _actions;
 };
+#endif // LIBFTPP_INCLUDES_NETWORK_CLIENT_CLIENT_HPP

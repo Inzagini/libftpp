@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_THREAD_PERSISTENTWORKER_PERSISTENT_WORKER_HPP
+# define LIBFTPP_INCLUDES_THREAD_PERSISTENTWORKER_PERSISTENT_WORKER_HPP
 
 #include "Thread/Thread/thread.hpp"
 #include "Thread/threading.hpp"
@@ -30,3 +31,4 @@ private:
   std::mutex _mutex;
   std::atomic<bool> _running;
 };
+#endif // LIBFTPP_INCLUDES_THREAD_PERSISTENTWORKER_PERSISTENT_WORKER_HPP

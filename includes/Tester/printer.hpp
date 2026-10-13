@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_TESTER_PRINTER_HPP
+# define LIBFTPP_INCLUDES_TESTER_PRINTER_HPP
 
 #include <chrono>
 #include <iostream>
@@ -34,3 +35,4 @@ public:
 };
 
 } // namespace Test
+#endif // LIBFTPP_INCLUDES_TESTER_PRINTER_HPP

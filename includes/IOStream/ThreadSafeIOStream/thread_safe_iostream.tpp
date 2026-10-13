@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_TPP
+# define LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_TPP
 
 template <typename T>
 ThreadSafeIOStream& ThreadSafeIOStream::operator<<(const T& data) {
@@ -38,3 +39,4 @@ void ThreadSafeIOStream::prompt(const std::string& question, T& dest) {
 
   m_startLine = true;
 }
+#endif // LIBFTPP_INCLUDES_IOSTREAM_THREADSAFEIOSTREAM_THREAD_SAFE_IOSTREAM_TPP

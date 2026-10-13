@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DESIGNPATTERNS_STATEMACHINE_STATE_MACHINE_TPP
+# define LIBFTPP_INCLUDES_DESIGNPATTERNS_STATEMACHINE_STATE_MACHINE_TPP
 
 template <typename TState>
 void StateMachine<TState>::addState(const TState& newState) {
@@ -48,3 +49,4 @@ template <typename TState> void StateMachine<TState>::update() {
 
   it->second();
 }
+#endif // LIBFTPP_INCLUDES_DESIGNPATTERNS_STATEMACHINE_STATE_MACHINE_TPP

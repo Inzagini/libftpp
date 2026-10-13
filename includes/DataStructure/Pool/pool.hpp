@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_HPP
+# define LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_HPP
 
 #include <cstddef>
 #include <new>
@@ -56,3 +57,4 @@ private:
 };
 
 #include "pool.tpp"
+#endif // LIBFTPP_INCLUDES_DATASTRUCTURE_POOL_POOL_HPP

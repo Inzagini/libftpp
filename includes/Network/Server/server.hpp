@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_NETWORK_SERVER_SERVER_HPP
+# define LIBFTPP_INCLUDES_NETWORK_SERVER_SERVER_HPP
 
 #include "Network/Message/message.hpp"
 #include <arpa/inet.h>
@@ -54,3 +55,4 @@ private:
   void sendAll(int socket, const uint8_t* data, const size_t size);
   std::vector<uint8_t> serialize(const Message& msg) const;
 };
+#endif // LIBFTPP_INCLUDES_NETWORK_SERVER_SERVER_HPP

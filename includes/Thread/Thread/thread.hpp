@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIBFTPP_INCLUDES_THREAD_THREAD_THREAD_HPP
+# define LIBFTPP_INCLUDES_THREAD_THREAD_THREAD_HPP
 
 #include "IOStream/ThreadSafeIOStream/thread_safe_iostream.hpp"
 #include <functional>
@@ -24,3 +25,4 @@ private:
   std::thread _thread;
   bool _started;
 };
+#endif // LIBFTPP_INCLUDES_THREAD_THREAD_THREAD_HPP
