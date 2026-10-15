@@ -217,8 +217,6 @@ void Server::sendAll(int socket, const uint8_t* data, size_t size) {
       continue;
     }
 
-    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput
-    // matters
     if (result == -1 &&
         (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;

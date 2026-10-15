@@ -25,13 +25,8 @@ void Client::connect(const std::string& address, const size_t port) {
     throw std::runtime_error("Invalid server address");
   }
 
-  if (::connect(_socket,
-
-                reinterpret_cast<sockaddr*>(&serverAddress),
-
-                sizeof(serverAddress)) == -1)
-
-  {
+  if (::connect(_socket, reinterpret_cast<sockaddr*>(&serverAddress),
+                sizeof(serverAddress)) == -1) {
     close(_socket);
     _socket = -1;
 
@@ -106,8 +101,6 @@ void Client::sendAll(const uint8_t* data, size_t size) {
       continue;
     }
 
-    // ponytail: busy-retries on EAGAIN; add a small backoff if throughput
-    // matters
     if (result == -1 &&
         (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
       continue;
